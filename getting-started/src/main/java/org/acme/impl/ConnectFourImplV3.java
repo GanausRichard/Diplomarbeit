@@ -68,11 +68,9 @@ public class ConnectFourImplV3 {
                     break;
                 }
             }
-            //column++;
         }
 
         for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
-
             for (int row = 0; row < gameState.ROW_QUANTITY; row++) {       //determine row
                 if (gameState.matrix[row][column] == 0) {       //check if matrix[row][column] is empty
                     gameState.matrix[row][column] = gameState.PLAYER_MAX;    //make a move
@@ -95,8 +93,18 @@ public class ConnectFourImplV3 {
 
     public int minFunction(int alpha, int beta, int depth) { //represents min player's move
         gameState.score = 0;
-        if (/*depth >= gameState.END_NODE ||*/ !areMovesLeft()) {  //end node reached
-            checkForWin(gameState.PLAYER_MAX);
+        checkForWin(gameState.PLAYER_MAX);
+
+        if (depth >= gameState.END_NODE /*|| !areMovesLeft()*/) {  //end node reached
+            return gameState.score;
+        }
+        else if (gameState.score >= 3) {                          //playerMAX has won
+            return gameState.score;
+        }
+        else if (gameState.score <= -3) {                          //playerMIN has won
+            return gameState.score;
+        }
+        else if (!areMovesLeft()) {   //tie
             return gameState.score;
         }
 
@@ -110,7 +118,6 @@ public class ConnectFourImplV3 {
                     depth--;
                     gameState.matrix[row][column] = 0;                //undo the move
 
-                    //if (depth >= gameState.END_depth && beta <= alpha) {
                     if (beta <= alpha) {
                         return alpha;
                     }
@@ -123,8 +130,18 @@ public class ConnectFourImplV3 {
 
     public int maxFunction(int alpha, int beta, int depth) { //represents max player's move
         gameState.score = 0;
-        if (/*depth >= gameState.END_NODE ||*/ !areMovesLeft()) {  //end node reached
-            checkForWin(gameState.PLAYER_MIN);
+        checkForWin(gameState.PLAYER_MIN);
+
+        if (depth >= gameState.END_NODE /*|| !areMovesLeft()*/) {  //end node reached
+            return gameState.score;
+        }
+        else if (gameState.score >= 3) {                       //playerMAX has won
+            return gameState.score;
+        }
+        else if (gameState.score <= -3) {                       //playerMIN has won
+            return gameState.score;
+        }
+        else if (!areMovesLeft()) {    //ti
             return gameState.score;
         }
 
@@ -203,12 +220,6 @@ public class ConnectFourImplV3 {
                 }
             }
         }
-            
-        /*if (player == gameState.PLAYER_MIN && win_chances > 0) {
-            gameState.score = -1;
-        } else if (player == gameState.PLAYER_MAX && win_chances > 0) {
-            gameState.score = 1;
-        }*/
 
         if (player == gameState.PLAYER_MIN) {
             gameState.score = (-1) * win_chances;
