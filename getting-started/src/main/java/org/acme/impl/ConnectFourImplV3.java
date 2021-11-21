@@ -61,10 +61,11 @@ public class ConnectFourImplV3 {
 
         for (int column = 0; column < gameState.COLUMN_QUANTITY && !column_checked; column++) {
             //determine in which row the tile should be placed
-            for (int row = 0; row < gameState.ROW_QUANTITY && !column_checked; row++) {
+            for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
                 if (gameState.matrix[row][column] == 0) {  //check if matrix[row][column] is empty
                     ideal_column = column;        //out of matrix range for declaration
                     column_checked = true;
+                    break;
                 }
             }
             //column++;
