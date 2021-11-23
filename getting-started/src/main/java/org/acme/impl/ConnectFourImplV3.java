@@ -98,10 +98,10 @@ public class ConnectFourImplV3 {
         if (depth >= gameState.END_NODE /*|| !areMovesLeft()*/) {  //end node reached
             return gameState.score;
         }
-        else if (gameState.score >= 3) {                          //playerMAX has won
+        else if (gameState.score >= 4) {                          //playerMAX has won
             return gameState.score;
         }
-        else if (gameState.score <= -3) {                          //playerMIN has won
+        else if (gameState.score <= -4) {                          //playerMIN has won
             return gameState.score;
         }
         else if (!areMovesLeft()) {   //tie
@@ -135,10 +135,10 @@ public class ConnectFourImplV3 {
         if (depth >= gameState.END_NODE /*|| !areMovesLeft()*/) {  //end node reached
             return gameState.score;
         }
-        else if (gameState.score >= 3) {                       //playerMAX has won
+        else if (gameState.score >= 4) {                       //playerMAX has won
             return gameState.score;
         }
-        else if (gameState.score <= -3) {                       //playerMIN has won
+        else if (gameState.score <= -4) {                       //playerMIN has won
             return gameState.score;
         }
         else if (!areMovesLeft()) {    //ti
