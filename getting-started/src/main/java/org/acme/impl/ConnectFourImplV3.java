@@ -24,7 +24,7 @@ public class ConnectFourImplV3 {
     public GameState doTurn(Turn turn) {
         int row = determineRow(turn.column);
         gameState.matrix[row][turn.column] = gameState.PLAYER_MIN;
-        checkForWin(gameState.PLAYER_MIN);
+        checkForWin_v1(gameState.PLAYER_MIN);
         //implement "if game finished"
         return gameState;
     }
@@ -33,7 +33,7 @@ public class ConnectFourImplV3 {
         int column = findBestMove();
         int row = determineRow(column);
         gameState.matrix[row][column] = gameState.PLAYER_MAX;
-        checkForWin(gameState.PLAYER_MAX);
+        checkForWin_v1(gameState.PLAYER_MAX);
         //implement "if game finished"
         return gameState;
     }
@@ -93,7 +93,7 @@ public class ConnectFourImplV3 {
 
     public int minFunction(int alpha, int beta, int depth) { //represents min player's move
         gameState.score = 0;
-        checkForWin(gameState.PLAYER_MAX);
+        checkForWin_v1(gameState.PLAYER_MAX);
 
         if (depth >= gameState.END_NODE /*|| !areMovesLeft()*/) {  //end node reached
             return gameState.score;
@@ -130,7 +130,7 @@ public class ConnectFourImplV3 {
 
     public int maxFunction(int alpha, int beta, int depth) { //represents max player's move
         gameState.score = 0;
-        checkForWin(gameState.PLAYER_MIN);
+        checkForWin_v1(gameState.PLAYER_MIN);
 
         if (depth >= gameState.END_NODE /*|| !areMovesLeft()*/) {  //end node reached
             return gameState.score;
@@ -165,206 +165,19 @@ public class ConnectFourImplV3 {
         return alpha;
     }
 
-    public void checkForWin(int player) {       //checks every possibility for a win
-        int win_chances = 0;
-        gameState.win = false;
-
-        //check all rows for a win
-        for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
-            for (int column = 0; column < (gameState.COLUMN_QUANTITY - 3); column++) {
-                if (gameState.matrix[row][column] == player &&
-                        gameState.matrix[row][column + 1] == player &&
-                        gameState.matrix[row][column + 2] == player &&
-                        gameState.matrix[row][column + 3] == player) {
-                    win_chances++;
-                }
-            }
-        }
-
-        //check all columns for a win
-        for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
-            for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
-                if (gameState.matrix[row][column] == player &&
-                        gameState.matrix[row + 1][column] == player &&
-                        gameState.matrix[row + 2][column] == player &&
-                        gameState.matrix[row + 3][column] == player) {
-                    win_chances++;
-                }
-            }
-        }
-
-        //check the main diagonal and it's parallels
-        for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
-            for (int column = 0; column < (gameState.COLUMN_QUANTITY - 3); column++) {
-                if (gameState.matrix[row][column] == player &&
-                        gameState.matrix[row + 1][column + 1] == player &&
-                        gameState.matrix[row + 2][column + 2] == player &&
-                        gameState.matrix[row + 3][column + 3] == player) {
-                    win_chances++;
-                }
-            }
-        }
-
-        //check the antidiagonal and it's parallels
-        for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
-            for (int column = 3; column < gameState.COLUMN_QUANTITY; column++) {
-                if (gameState.matrix[row][column] == player &&
-                        gameState.matrix[row + 1][column - 1] == player &&
-                        gameState.matrix[row + 2][column - 2] == player &&
-                        gameState.matrix[row + 3][column - 3] == player) {
-                    win_chances++;
-                }
-            }
-        }
-
-        if (win_chances > 0) {
-            gameState.win = true;
-        }
-
-        if (player == gameState.PLAYER_MIN) {
-            gameState.score = (-1) * win_chances;
-        } else if (player == gameState.PLAYER_MAX) {
-            gameState.score = win_chances;
-        }
-    }
-
-    /*public void checkForWin_v2(int player) {    //checks every possibility for a win
-        int win_chances = 0;
-        gameState.win = false;
-
-        int[][] positions = new int[2][21];   // position[0][n] = row /// position[1][n] = column
-        int total_positions = 0;
-        int n_in_a_row = 0;      //number of positions in a row
-        int n_in_a_column = 0;      //number of positions in a column
-
-        //save positions and check rows for a win
-        for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
-            for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
-                if (gameState.matrix[row][column] == player) {
-                    positions[0][total_positions] = row;
-                    positions[1][total_positions] = column;
-                    total_positions++;
-
-                    n_in_a_row++;
-                }
-            }
-
-            if (n_in_a_row == 4) {  //4 in a row
-                for (int i = 0; i < (n_in_a_row - 1); i++) {
-                    if (positions[1][total_positions] == positions[1][total_positions + 1] + 1) {
-                        //win conditions met once
-                    }
-                }
-            }
-            else if (n_in_a_row == 5) {  //5 in a row
-
-            }
-            else if (n_in_a_row == 6) {  //6 in a row
-
-             }
-            else if (n_in_a_row == 7) {  //7 in a row
-                //win condition met four times
-            }
-            n_in_a_row = 0;
-        }
-
-
-
-        //column has to be equal to check 4 in a column
-        for (int i = 0; i < total_positions; i++) {
-            for (int column = 0; column >= gameState.COLUMN_QUANTITY; column++) {
-                do {
-                    n_in_a_column++;
-                } while (positions[1][i] == column);
-            }
-        }
-        // check both diagonals
-
-        //check all rows for a win
-        for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
-            for (int column = 0; column < (gameState.COLUMN_QUANTITY - 3); column++) {
-                if (gameState.matrix[row][column] == player &&
-                        gameState.matrix[row][column + 1] == player &&
-                        gameState.matrix[row][column + 2] == player &&
-                        gameState.matrix[row][column + 3] == player) {
-                    gameState.win = true;
-                    win_chances++;
-                }
-            }
-        }
-
-        //check all columns for a win
-        for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
-            for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
-                if (gameState.matrix[row][column] == player &&
-                        gameState.matrix[row + 1][column] == player &&
-                        gameState.matrix[row + 2][column] == player &&
-                        gameState.matrix[row + 3][column] == player) {
-                    gameState.win = true;
-                    win_chances++;
-                }
-            }
-        }
-
-        //check the main diagonal and it's parallels
-        for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
-            for (int column = 0; column < (gameState.COLUMN_QUANTITY - 3); column++) {
-                if (gameState.matrix[row][column] == player &&
-                        gameState.matrix[row + 1][column + 1] == player &&
-                        gameState.matrix[row + 2][column + 2] == player &&
-                        gameState.matrix[row + 3][column + 3] == player) {
-                    gameState.win = true;
-                    win_chances++;
-                }
-            }
-        }
-
-        //check the antidiagonal and it's parallels
-        for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
-            for (int column = 3; column < gameState.COLUMN_QUANTITY; column++) {
-                if (gameState.matrix[row][column] == player &&
-                        gameState.matrix[row + 1][column - 1] == player &&
-                        gameState.matrix[row + 2][column - 2] == player &&
-                        gameState.matrix[row + 3][column - 3] == player) {
-                    gameState.win = true;
-                    win_chances++;
-                }
-            }
-        }
-
-        if (player == gameState.PLAYER_MIN) {
-            gameState.score = (-1) * win_chances;
-        } else if (player == gameState.PLAYER_MAX) {
-            gameState.score = win_chances;
-        }
-    }*/
-
-    public void checkForWin_v3(int player) {    //checks every possibility for a win
-        int win_chances = 0;
-        gameState.win = false;
-
-        int coordinates_row[][] = new int[gameState.COLUMN_QUANTITY][gameState.ROW_QUANTITY];
-        int coordinates_column[][] = new int[gameState.ROW_QUANTITY][gameState.COLUMN_QUANTITY];
-        int total_positions = 0;
+    public void checkForWin_v1(int player) {    //checks every possibility for a win
         int streak = 0;
+        int win_chances = 0;
+        gameState.win = false;
 
-        //save positions in rows
-        for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
-            for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
-                if (gameState.matrix[row][column] == player) {
-                    coordinates_row[total_positions][row] = column;
-                    total_positions++;
-                }
-            }
-        }
         //check all rows for a win
         for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
-            for (total_positions = 0; coordinates_row[total_positions][row] != 0; total_positions++) {
-                if ((coordinates_row[total_positions][row] + 1) == coordinates_row[total_positions + 1][row]) {
+            streak = 0;
+            for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
+                if (gameState.matrix[row][column] == player) {
                     streak++;
-                    if (streak >= 3) {      //at least 4 in a row
+                    if (streak >= 4) {      //at least 4 in a row
                         win_chances++;
-                        //gameState.win = true;
                     }
                 }
                 else {
@@ -373,26 +186,14 @@ public class ConnectFourImplV3 {
             }
         }
 
-        //reset variables
-        total_positions = 0;
-        streak = 0;
-        //save positions in rows
+        //check all columns for a win
         for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
-            for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
+            streak = 0;
+            for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
                 if (gameState.matrix[row][column] == player) {
-                    coordinates_column[total_positions][column] = row;
-                    total_positions++;
-                }
-            }
-        }
-        //check all rows for a win
-        for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
-            for (total_positions = 0; coordinates_column[total_positions][column] != 0; total_positions++) {
-                if ((coordinates_column[total_positions][column] + 1) == coordinates_column[total_positions + 1][column]) {
                     streak++;
-                    if (streak >= 3) {      //at least 4 in a row
+                    if (streak >= 4) {      //at least 4 in a row
                         win_chances++;
-                        //gameState.win = true;
                     }
                 }
                 else {
@@ -408,6 +209,7 @@ public class ConnectFourImplV3 {
                         gameState.matrix[row + 1][column + 1] == player &&
                         gameState.matrix[row + 2][column + 2] == player &&
                         gameState.matrix[row + 3][column + 3] == player) {
+                    gameState.win = true;
                     win_chances++;
                 }
             }
@@ -420,13 +222,14 @@ public class ConnectFourImplV3 {
                         gameState.matrix[row + 1][column - 1] == player &&
                         gameState.matrix[row + 2][column - 2] == player &&
                         gameState.matrix[row + 3][column - 3] == player) {
+                    gameState.win = true;
                     win_chances++;
                 }
             }
         }
 
         if (win_chances > 0) {
-            gameState.win = true;
+        gameState.win = true;
         }
 
         if (player == gameState.PLAYER_MIN) {
