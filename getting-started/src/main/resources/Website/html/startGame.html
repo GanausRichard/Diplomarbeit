@@ -13,26 +13,21 @@
 		<p>Bitte wähle den Spielmodus und deinen Benutzernamen.</p>
 	</div>
     <div class="data-box">
-		<form action="/startGame" method="post" id="gameSettings">
-			<div class="input" id="first">
-				<label for="firstName">BENUTZERNAME</label>
-				<input type="text" id="firstName" class="textbox" placeholder="Maxi" />
-
+		<form action="/staticFiles/js/startGame" method="post" id="gameSettings">
+			<div class="input" id="firstInput">
+				<label for="name">BENUTZERNAME</label>
+				<input type="text" id="name" class="textbox" placeholder="Benutzername" />
 			</div>
 			
-			<div class="input" id="fourth">
+			<div class="input" id="secondInput">
 				<label>SPIELMODUS</label>
 				<div>
-					<button type="button" id="gamemode1" name="gameMode" value="pvp">PVP</button>
-					<button type="button" id="gamemode2" name="gamemode" value="pve">PVE</button>
+					<button type="button" id="gameMode1" value="pvp">PVP</button>
+					<button type="button" id="gameMode2" value="pve">PVE</button>
 				</div>
 			</div>
 			<button type="submit" class="submit" id="submit" name="submit" value="submit">SUBMIT</button>
 		</form>
 	</div>
-	
-	<script>
-		
-	</script>
 </body>
 </html>

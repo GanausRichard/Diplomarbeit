@@ -9,6 +9,5 @@ function getColumn(columnId) {
 		method: 'POST',
 		headers: myHeaders,
 		body: JSON.stringify(data) })
-	.then(response => {console.log(response.json()); });
+	.then(response => {console.log("players turn has finished", response.json()); });
 }
-
