@@ -12,6 +12,7 @@ public class GameState {
     public final int PLAYER_MAX = 2;
 
     public int score = 0;
+    public int move = 0;
     public boolean win = false;
     public Settings settings;
     public int[][] matrix = new int[ROW_QUANTITY][COLUMN_QUANTITY];

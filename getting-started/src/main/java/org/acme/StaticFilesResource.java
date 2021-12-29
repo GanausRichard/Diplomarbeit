@@ -58,5 +58,4 @@ public class StaticFilesResource {
     public String startGameCSS() throws IOException, URISyntaxException {
         return Files.readString(Paths.get(StaticFilesResource.class.getResource("/Website/css/startGame.css").toURI()));
     }
-
 }

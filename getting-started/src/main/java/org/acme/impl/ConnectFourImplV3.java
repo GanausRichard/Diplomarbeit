@@ -22,9 +22,21 @@ public class ConnectFourImplV3 {
     }
 
     public GameState doTurn(Turn turn) {
+        int player = gameState.PLAYER_MIN;
         int row = determineRow(turn.column);
-        gameState.matrix[row][turn.column] = gameState.PLAYER_MIN;
-        checkForWin_v1(gameState.PLAYER_MIN);
+        gameState.move++;
+
+        if(gameState.settings.gameMode.equals("pvp")) {
+            if ((gameState.move % 2) == 1) {
+                player = gameState.PLAYER_MIN;
+            }
+            else if ((gameState.move % 2) == 0) {
+                player = gameState.PLAYER_MAX;
+            }
+        }
+
+        gameState.matrix[row][turn.column] = player;
+        checkForWin_v1(player);
         //implement "if game finished"
         return gameState;
     }
