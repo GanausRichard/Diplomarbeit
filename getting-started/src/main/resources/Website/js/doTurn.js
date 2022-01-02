@@ -9,5 +9,12 @@ function getColumn(columnId) {
 		method: 'POST',
 		headers: myHeaders,
 		body: JSON.stringify(data) })
-	.then(response => {console.log("players turn has finished", response.json()); });
+		.then(response => response.json())
+		.then(data => {
+			console.log("players turn has finished", data);
+			if(data['win'] == true)
+			{
+				window.alert("Du hast das Spiel gewonnen. Nicht schlecht!");
+			}
+		});
 }

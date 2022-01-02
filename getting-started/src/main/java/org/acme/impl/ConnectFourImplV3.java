@@ -14,6 +14,7 @@ public class ConnectFourImplV3 {
     GameState gameState;
 
     public GameState startGame(Settings settings) {
+        gameState.move = 0;
         gameState.score = 0;
         gameState.win = false;
         gameState.matrix = new int[gameState.ROW_QUANTITY][gameState.COLUMN_QUANTITY];
@@ -182,7 +183,7 @@ public class ConnectFourImplV3 {
         int win_chances = 0;
         gameState.win = false;
 
-        //check all rows for a win
+        //check for 4 in a row
         for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
             streak = 0;
             for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
@@ -198,10 +199,10 @@ public class ConnectFourImplV3 {
             }
         }
 
-        //check all columns for a win
+        //check for 4 in a column
         for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
             streak = 0;
-            for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
+            for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
                 if (gameState.matrix[row][column] == player) {
                     streak++;
                     if (streak >= 4) {      //at least 4 in a row
