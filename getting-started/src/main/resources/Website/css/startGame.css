@@ -64,12 +64,12 @@ button {
 	margin-top: 10px;
 }
 
-.submit {
+#submit {
 	width: 120px;
 	height: 70px;
 	
 	background-color: #9ABBBF;
-	font: bold 14px Ubuntu, sans-serif;
+	font: bold 16px Ubuntu, sans-serif;
 
 	padding:8px;
 	border: none;

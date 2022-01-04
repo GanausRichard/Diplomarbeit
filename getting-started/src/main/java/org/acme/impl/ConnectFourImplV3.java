@@ -23,9 +23,9 @@ public class ConnectFourImplV3 {
     }
 
     public GameState doTurn(Turn turn) {
+        gameState.move++;
         int player = gameState.PLAYER_MIN;
         int row = determineRow(turn.column);
-        gameState.move++;
 
         if(gameState.settings.gameMode.equals("pvp")) {
             if ((gameState.move % 2) == 1) {
@@ -43,8 +43,10 @@ public class ConnectFourImplV3 {
     }
 
     public GameState doRobotTurn() {
+        gameState.move++;
         int column = findBestMove();
         int row = determineRow(column);
+
         gameState.matrix[row][column] = gameState.PLAYER_MAX;
         checkForWin_v1(gameState.PLAYER_MAX);
         //implement "if game finished"
@@ -247,20 +249,18 @@ public class ConnectFourImplV3 {
 
         if (player == gameState.PLAYER_MIN) {
             gameState.score = (-1) * win_chances;
-        } else if (player == gameState.PLAYER_MAX) {
+        }
+        else if (player == gameState.PLAYER_MAX) {
             gameState.score = win_chances;
         }
     }
 
     boolean areMovesLeft() {
         boolean moves_left = false;
+        int max_possible_moves = gameState.COLUMN_QUANTITY * gameState.ROW_QUANTITY;
 
-        for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
-            for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
-                if (gameState.matrix[row][column] == 0) {
-                    moves_left = true;
-                }
-            }
+        if(gameState.move < max_possible_moves) {
+            moves_left = true;
         }
         return moves_left;
     }

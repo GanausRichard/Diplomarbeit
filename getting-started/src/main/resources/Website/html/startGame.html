@@ -9,24 +9,30 @@
 
 <body>
 	<div class="heading">
-		<h1>Spielerdaten</h1>
-		<p>Bitte wähle den Spielmodus und deinen Benutzernamen.</p>
+		<h1>SPIELERDATEN</h1>
+		<p>Bitte wähle Spielmodus und Benutzernamen.</p>
 	</div>
     <div class="data-box">
 		<form id="gameSettings">
-			<div class="input" id="firstInput">
-				<label for="name">BENUTZERNAME</label>
-				<input type="text" id="name" class="textbox" placeholder="Benutzername" />
-			</div>
-			
-			<div class="input" id="secondInput">
-				<label>SPIELMODUS</label>
+			<div class="input">
+				<label>Spielmodus</label>
 				<div>
-					<button type="button" id="gameMode0" value="pvp" onclick="getGameMode(value)">PVP</button>
-					<button type="button" id="gameMode1" value="pve" onclick="getGameMode(value)">PVE</button>
+					<button type="button" id="gameMode1" value="pve" onclick="getGameMode(value)">Einzelspieler</button>
+					<button type="button" id="gameMode0" value="pvp" onclick="getGameMode(value)">Mehrspieler</button>
 				</div>
 			</div>
-			<button type="submit" class="submit" id="submit" name="submit" value="submit">SUBMIT</button>
+
+			<div class="input" id="inputBox1">
+				<label for="name1">Spieler 1</label>
+				<input type="text" id="name1" class="textbox" placeholder="Benutzername" />
+			</div>
+
+			<div class="input" id="inputBox2">
+				<label for="name2">Spieler 2</label>
+				<input type="text" id="name2" class="textbox" placeholder="Benutzername" />
+			</div>
+
+			<button type="submit" class="submit" id="submit" name="submit" value="submit">Weiter</button>
 		</form>
 	</div>
 </body>
