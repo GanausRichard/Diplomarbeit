@@ -16,4 +16,5 @@ public class GameState {
     public boolean win = false;
     public Settings settings;
     public int[][] matrix = new int[ROW_QUANTITY][COLUMN_QUANTITY];
+    public String sessionID;
 }

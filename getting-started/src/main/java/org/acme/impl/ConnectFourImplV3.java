@@ -1,11 +1,13 @@
 package org.acme.impl;
 
+import org.acme.model.ConnectFourExeption;
 import org.acme.model.GameState;
 import org.acme.model.Settings;
 import org.acme.model.Turn;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import java.util.UUID;
 
 @Dependent
 public class ConnectFourImplV3 {
@@ -13,7 +15,11 @@ public class ConnectFourImplV3 {
     @Inject
     GameState gameState;
 
-    public GameState startGame(Settings settings) {
+    public GameState startGame(Settings settings, String sessionID) throws ConnectFourExeption {
+        if (gameState.sessionID != null && !sessionID.equals(gameState.sessionID)) {
+            throw new ConnectFourExeption("Ein Benutzer ist bereits angemeldet!");
+        }
+        gameState.sessionID = UUID.randomUUID().toString();
         gameState.move = 0;
         gameState.score = 0;
         gameState.win = false;
@@ -113,10 +119,10 @@ public class ConnectFourImplV3 {
         if (depth >= gameState.END_NODE /*|| !areMovesLeft()*/) {  //end node reached
             return gameState.score;
         }
-        else if (gameState.score >= 4) {                          //playerMAX has won
+        else if (gameState.score >= 2) {                          //playerMAX has won
             return gameState.score;
         }
-        else if (gameState.score <= -4) {                          //playerMIN has won
+        else if (gameState.score <= -2) {                          //playerMIN has won
             return gameState.score;
         }
         else if (!areMovesLeft()) {   //tie
@@ -150,13 +156,13 @@ public class ConnectFourImplV3 {
         if (depth >= gameState.END_NODE /*|| !areMovesLeft()*/) {  //end node reached
             return gameState.score;
         }
-        else if (gameState.score >= 4) {                       //playerMAX has won
+        else if (gameState.score >= 2) {                       //playerMAX has won
             return gameState.score;
         }
-        else if (gameState.score <= -4) {                       //playerMIN has won
+        else if (gameState.score <= -2) {                       //playerMIN has won
             return gameState.score;
         }
-        else if (!areMovesLeft()) {    //ti
+        else if (!areMovesLeft()) {    //tie
             return gameState.score;
         }
 
