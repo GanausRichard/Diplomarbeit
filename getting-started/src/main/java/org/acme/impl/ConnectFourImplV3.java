@@ -1,9 +1,13 @@
 package org.acme.impl;
 
-import org.acme.model.*;
+import org.acme.model.ConnectFourExeption;
+import org.acme.model.GameState;
+import org.acme.model.Settings;
+import org.acme.model.Turn;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Dependent
@@ -22,6 +26,10 @@ public class ConnectFourImplV3 {
         gameState.win = false;
         gameState.matrix = new int[gameState.ROW_QUANTITY][gameState.COLUMN_QUANTITY];
         gameState.settings = settings;
+
+        gameState.timeNewLoop = 0;
+        gameState.timeOldLoop = 0;
+
         return gameState;
     }
 
@@ -29,8 +37,6 @@ public class ConnectFourImplV3 {
         gameState.move++;
         int player = gameState.PLAYER_MIN;
         int row = determineRow(turn.column);
-        Position takeCubeFrom = Position.HOME;
-        Position putCubeTo = Position.HOME;
 
         if(gameState.settings.gameMode.equals("pvp")) {
             if ((gameState.move % 2) == 1) {
@@ -42,10 +48,12 @@ public class ConnectFourImplV3 {
         }
 
         gameState.matrix[row][turn.column] = player;
-        sendPositions(takeCubeFrom, putCubeTo);
+        //sendPositions(takeCubeFrom(player), putCubeTo(turn.column));
 
         checkForWin_v1(player);
         //implement "if game finished"
+        System.out.println("Duration of old loop: " + gameState.timeOldLoop);
+        System.out.println("Duration of new loop: " + gameState.timeNewLoop);
         return gameState;
     }
 
@@ -53,11 +61,9 @@ public class ConnectFourImplV3 {
         gameState.move++;
         int column = findBestMove();
         int row = determineRow(column);
-        Position takeCubeFrom = Position.HOME;
-        Position putCubeFrom = Position.HOME;
 
         gameState.matrix[row][column] = gameState.PLAYER_MAX;
-        sendPositions(takeCubeFrom, putCubeFrom);
+        //sendPositions(takeCubeFrom(gameState.PLAYER_MAX), putCubeTo(turn.column));
 
         checkForWin_v1(gameState.PLAYER_MAX);
         //implement "if game finished"
@@ -196,6 +202,7 @@ public class ConnectFourImplV3 {
         int win_chances = 0;
         gameState.win = false;
 
+
         //check for 4 in a row
         for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
             streak = 0;
@@ -228,9 +235,10 @@ public class ConnectFourImplV3 {
             }
         }
         /*
+        long startTime = ZonedDateTime.now().toInstant().toEpochMilli();
         //check the main diagonal and it's parallels
-        for (int row = 0; row < (gameState.ROW_QUANTITY - 4); row++) {
-            for (int column = 0; column < (gameState.COLUMN_QUANTITY - 4); column++) {
+        for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
+            for (int column = 0; column < (gameState.COLUMN_QUANTITY - 3); column++) {
                 if (gameState.matrix[row][column] == player &&
                         gameState.matrix[row + 1][column + 1] == player &&
                         gameState.matrix[row + 2][column + 2] == player &&
@@ -241,7 +249,7 @@ public class ConnectFourImplV3 {
         }
 
         //check the antidiagonal and it's parallels
-        for (int row = 0; row < (gameState.ROW_QUANTITY - 4); row++) {
+        for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
             for (int column = 3; column < gameState.COLUMN_QUANTITY; column++) {
                 if (gameState.matrix[row][column] == player &&
                         gameState.matrix[row + 1][column - 1] == player &&
@@ -251,18 +259,22 @@ public class ConnectFourImplV3 {
                 }
             }
         }
+        long endTime = ZonedDateTime.now().toInstant().toEpochMilli();
+        gameState.timeOldLoop += (endTime - startTime);
         */
 
+        long startTime = ZonedDateTime.now().toInstant().toEpochMilli();
         //check the main diagonal and it's parallels
         boolean continue_loop;
-        for (int row = 0; row < (gameState.ROW_QUANTITY - 4); row++) {
-            for (int column = 0; column < (gameState.COLUMN_QUANTITY - 4); column++) {
+        for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
+            for (int column = 0; column < (gameState.COLUMN_QUANTITY - 3); column++) {
                 streak = 0;
                 continue_loop = false;
                 // if the current position == player then next position of that diagonal gets checked
                 // the loop breaks as soon as the first position of that diagonal != player
                 // or when  4 positions of that diagonal == player
                 do {
+
                     if (gameState.matrix[row + streak][column + streak] == player) {
                         streak++;
                         continue_loop = true;
@@ -271,12 +283,15 @@ public class ConnectFourImplV3 {
                             continue_loop = false;
                         }
                     }
+                    else {
+                        continue_loop = false;
+                    }
                 } while(continue_loop);
             }
         }
 
         //check the antidiagonal and it's parallels
-        for (int row = 0; row < (gameState.ROW_QUANTITY - 4); row++) {
+        for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
             for (int column = 3; column < gameState.COLUMN_QUANTITY; column++) {
                 streak = 0;
                 continue_loop = false;
@@ -292,12 +307,17 @@ public class ConnectFourImplV3 {
                             continue_loop = false;
                         }
                     }
+                    else {
+                        continue_loop = false;
+                    }
                 } while(continue_loop);
             }
         }
+        long endTime = ZonedDateTime.now().toInstant().toEpochMilli();
+        gameState.timeNewLoop += (endTime - startTime);
 
         if (win_chances > 0) {
-        gameState.win = true;
+            gameState.win = true;
         }
 
         if (player == gameState.PLAYER_MIN) {
@@ -305,6 +325,66 @@ public class ConnectFourImplV3 {
         }
         else if (player == gameState.PLAYER_MAX) {
             gameState.score = win_chances;
+        }
+    }
+    /*
+    Position takeCubeFrom(int player) {
+        int countYelCubes = 0;  //cubes for PlayerMIN
+        int countRedCubes = 0;  //cubes for PlayerMAX
+
+        if (player == gameState.PLAYER_MIN) { //take one of the players cubes from the magazine
+            countYelCubes++;
+
+            if(countYelCubes/2 == 1) {  //uneven
+                sendPositions(, Position.MAG_TOP_YEL1);
+            }
+            else {  //even
+                sendPositions(, Position.MAG_TOP_YEL2);
+            }
+        }
+        else if (player == gameState.PLAYER_MAX) { //take one of the robots cubes from the magazine
+            countRedCubes++;
+
+            if(countRedCubes/2 == 1) {  //uneven
+                sendPositions(, Position.MAG_TOP_YEL1);
+            }
+            else {  //even
+                sendPositions(, Position.MAG_TOP_YEL2);
+            }
+        }
+    }
+
+    Position putCubeTo(int column) throws ConnectFourExeption {
+        return Position.valueOfI(column + 5);
+    }
+
+    void removeCubes() {
+        int countYelCubes = 0;  //cubes of PlayerMIN
+        int countRedCubes = 0;  //cubes of PlayerMAX
+
+        for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
+            for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
+                if(gameState.matrix[row][column] == gameState.PLAYER_MIN) {
+                    countYelCubes++;
+                    //check if amount of cubes is even or uneven for alternating between magazines
+                    if(countYelCubes/2 == 1) {  //uneven
+                        sendPositions(, Position.MAG_TOP_YEL1);
+                    }
+                    else {  //even
+                        sendPositions(, Position.MAG_TOP_YEL2);
+                    }
+                }
+                else if (gameState.matrix[row][column] == gameState.PLAYER_MAX) {
+                    countRedCubes++;
+                    //check if amount of cubes is even or uneven for alternating between magazines
+                    if(countRedCubes/2 == 1) {  //uneven
+                        sendPositions(, Position.MAG_TOP_RED1);
+                    }
+                    else {  //even
+                        sendPositions(, Position.MAG_TOP_RED2);
+                    }
+                }
+            }
         }
     }
 
@@ -323,31 +403,6 @@ public class ConnectFourImplV3 {
         sendNumberToRobot(putTo);
     }
 
-    void removeCubes() {
-        for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
-            for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
-                if(gameState.matrix[row][column] == gameState.PLAYER_MIN) {
-                    //check if amount of cubes is even or uneven for alternating between magazines
-                    if((row * column + column)/2 == 0) {
-                        sendNumberToRobot(Position.MAG_TOP_YEL1);
-                    }
-                    else {
-                        sendNumberToRobot(Position.MAG_TOP_YEL2);
-                    }
-                }
-                else if (gameState.matrix[row][column] == gameState.PLAYER_MAX) {
-                    //check if amount of cubes is even or uneven for alternating between magazines
-                    if((row * column + column)/2 == 0) {
-                        sendNumberToRobot(Position.MAG_TOP_RED1);
-                    }
-                    else {
-                        sendNumberToRobot(Position.MAG_TOP_RED2);
-                    }
-                }
-            }
-        }
-    }
-
     void sendNumberToRobot(Position programNumber) {
 
     }
@@ -357,6 +412,7 @@ public class ConnectFourImplV3 {
 
         return acknoledged;
     }
+     */
 
     boolean areMovesLeft() {
         boolean moves_left = false;
