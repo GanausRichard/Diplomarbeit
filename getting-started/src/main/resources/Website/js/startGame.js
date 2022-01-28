@@ -2,10 +2,10 @@ let gameMode = "pve";
 
 function getGameMode(value) {
     gameMode = value;
-    if (gameMode == 'pvp') {
+    if (gameMode === 'pvp') {
         document.getElementById('inputBox2').style.display = 'block';
     }
-    else if (gameMode == 'pve') {
+    else if (gameMode === 'pve') {
         document.getElementById('inputBox2').style.display = 'none';
     }
 }
