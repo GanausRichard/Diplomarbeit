@@ -41,7 +41,7 @@ function doThisEachTurn(data) {
 }
 
 function doRobotTurn() {
-	fetch('http://localhost:8080/connectFour/doRobotTurn', {
+	fetch('http://' + window.location.host + '/connectFour/doRobotTurn', {
 		method: 'POST',
 		redirect: 'follow' })
 		.then(response => response.json())
