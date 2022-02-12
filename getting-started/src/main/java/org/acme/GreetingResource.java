@@ -40,9 +40,9 @@ public class GreetingResource {
 
     @POST
     @Path("/doTurn")
-    public GameState doTurn(Turn turn) { return connectFour.doTurn(turn); }
+    public GameState doTurn(Turn turn) throws ConnectFourExeption { return connectFour.doTurn(turn); }
 
     @POST
     @Path("/doRobotTurn")
-    public GameState doRobotTurn() { return connectFour.doRobotTurn(); }
+    public GameState doRobotTurn() throws ConnectFourExeption { return connectFour.doRobotTurn(); }
 }

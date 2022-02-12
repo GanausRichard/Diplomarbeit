@@ -13,6 +13,8 @@ public class GameState {
 
     public int score = 0;
     public int move = 0; //only counts player's moves
+    public int countYelCubes = 0;  //cubes for PlayerMIN
+    public int countRedCubes = 0;  //cubes for PlayerMAX
     public boolean win = false;
     public Settings settings;
     public int[][] matrix = new int[ROW_QUANTITY][COLUMN_QUANTITY];

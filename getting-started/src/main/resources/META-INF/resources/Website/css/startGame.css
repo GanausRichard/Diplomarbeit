@@ -1,0 +1,77 @@
+body {
+	font: bold 14px Ubuntu, sans-serif;
+	text-align: center;
+}
+
+.heading {
+	margin-top: 60px;
+}
+
+.data-box {
+	width: 280px;
+	height: 418px;
+	
+	margin-top: 40px;
+	margin-left: auto;
+	margin-right:auto;
+}
+
+.input {	
+	width: 260px;
+	
+	background-color: #D7E9EB;
+	
+	padding: 10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	
+	transition: 2s;
+}
+
+.input:hover {
+	background-color: #9ABBBF;
+}
+
+.textbox {
+	width: 220px;
+	height: 25px;
+	
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 2px solid black;
+	border-radius: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	
+}
+
+.textbox:focus {
+	outline: none;
+}
+
+button {
+	height: 30px;
+
+	background-color: #FFFFFF;
+	font: 14px Ubuntu, sans-serif;
+
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 2px solid black;
+	margin-left: 6px;
+	margin-right: 6px;
+	margin-top: 10px;
+}
+
+#submit {
+	width: 120px;
+	height: 70px;
+	
+	background-color: #9ABBBF;
+	font: bold 16px Ubuntu, sans-serif;
+
+	padding:8px;
+	border: none;
+	margin-bottom: 5px;
+}

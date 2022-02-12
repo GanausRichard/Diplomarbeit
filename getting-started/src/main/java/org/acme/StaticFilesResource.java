@@ -6,27 +6,33 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.Scanner;
 
 @Path("/staticFiles")
 @Consumes(MediaType.APPLICATION_JSON)
 public class StaticFilesResource {
+
+    private String resourceToString(String resource) {
+        InputStream is = getClass().getClassLoader().getResourceAsStream(resource);
+        Scanner s = new Scanner(is).useDelimiter("\\A");
+        return s.hasNext()?s.next():"Error";
+    }
 
     //HTML files
     @GET
     @Path("/html/startGame")
     @Produces(MediaType.TEXT_HTML)
     public String startGameHTML() throws IOException, URISyntaxException {
-        return Files.readString(Paths.get(StaticFilesResource.class.getResource("/Website/html/startGame.html").toURI()));
+        return resourceToString("/Website/html/startGame.html");
     }
 
     @GET
     @Path("/html/doTurn")
     @Produces(MediaType.TEXT_HTML)
     public String doTurnHTML() throws IOException, URISyntaxException {
-        return Files.readString(Paths.get(StaticFilesResource.class.getResource("/Website/html/doTurn.html").toURI()));
+        return resourceToString("/Website/html/doTurn.html");
     }
 
     //JS files
@@ -34,21 +40,21 @@ public class StaticFilesResource {
     @Path("/js/startGame")
     @Produces("application/javascript")
     public String startGameJS() throws IOException, URISyntaxException {
-        return Files.readString(Paths.get(StaticFilesResource.class.getResource("/Website/js/startGame.js").toURI()));
+        return resourceToString("/Website/js/startGame.js");
     }
 
     @GET
     @Path("/js/doTurn")
     @Produces("application/javascript")
     public String doTurnJS() throws IOException, URISyntaxException {
-        return Files.readString(Paths.get(StaticFilesResource.class.getResource("/Website/js/doTurn.js").toURI()));
+        return resourceToString("/Website/js/doTurn.js");
     }
 
     @GET
     @Path("/js/doRobotTurn")
     @Produces("application/javascript")
     public String doRobotTurnJS() throws IOException, URISyntaxException {
-        return Files.readString(Paths.get(StaticFilesResource.class.getResource("/Website/js/doRobotTurn.js").toURI()));
+        return resourceToString("/Website/js/doRobotTurn.js");
     }
 
     //CSS files
@@ -56,6 +62,6 @@ public class StaticFilesResource {
     @Path("/css/startGame")
     @Produces("text/css")
     public String startGameCSS() throws IOException, URISyntaxException {
-        return Files.readString(Paths.get(StaticFilesResource.class.getResource("/Website/css/startGame.css").toURI()));
+        return resourceToString("/Website/css/startGame.css");
     }
 }
