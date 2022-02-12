@@ -20,6 +20,6 @@ public class GameState {
     public int[][] matrix = new int[ROW_QUANTITY][COLUMN_QUANTITY];
     public String sessionID;
 
-    public long timeOldLoop = 0;
-    public long timeNewLoop = 0;
+    //public long timeOldLoop = 0;
+    //public long timeNewLoop = 0;
 }

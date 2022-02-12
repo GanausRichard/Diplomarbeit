@@ -29,7 +29,7 @@ window.onload = function startGame() {
 
         document.getElementById('customText').style.display = 'none';
 
-        fetch('http://localhost:8080/connectFour/start', {
+        fetch('http://' + window.location.host + '/connectFour/start', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: myHeaders})

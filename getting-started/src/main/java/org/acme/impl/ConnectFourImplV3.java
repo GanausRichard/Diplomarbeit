@@ -23,8 +23,8 @@ public class ConnectFourImplV3 {
         gameState.matrix = new int[gameState.ROW_QUANTITY][gameState.COLUMN_QUANTITY];
         gameState.settings = settings;
 
-        gameState.timeNewLoop = 0;
-        gameState.timeOldLoop = 0;
+        //gameState.timeNewLoop = 0;
+        //gameState.timeOldLoop = 0;
 
         return gameState;
     }
@@ -48,8 +48,8 @@ public class ConnectFourImplV3 {
 
         checkForWin_v1(player);
         //implement "if game finished"
-        System.out.println("Duration of old loop: " + gameState.timeOldLoop);
-        System.out.println("Duration of new loop: " + gameState.timeNewLoop);
+        //System.out.println("Duration of old loop: " + gameState.timeOldLoop);
+        //System.out.println("Duration of new loop: " + gameState.timeNewLoop);
         return gameState;
     }
 

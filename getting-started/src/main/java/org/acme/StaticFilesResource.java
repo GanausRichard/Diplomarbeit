@@ -16,7 +16,7 @@ public class StaticFilesResource {
 
     private String resourceToString(String resource) {
         InputStream is = getClass().getClassLoader().getResourceAsStream(resource);
-        Scanner s = new Scanner(is).useDelimiter("\\A");
+        Scanner s = new Scanner(is, "UTF-8").useDelimiter("\\A");
         return s.hasNext()?s.next():"Error";
     }
 

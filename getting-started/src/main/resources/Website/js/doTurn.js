@@ -5,7 +5,7 @@ function getColumn(columnId) {
 	const myHeaders = new Headers();
 	myHeaders.append('Content-Type', 'application/json');
   
-	fetch('http://localhost:8080/connectFour/doTurn', {
+	fetch('http://' + window.location.host + '/connectFour/doTurn', {
 		method: 'POST',
 		headers: myHeaders,
 		body: JSON.stringify(data) })
