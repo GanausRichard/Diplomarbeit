@@ -170,10 +170,10 @@ public class ConnectFourImplV3Test {
         GameState gameState = new GameState();
         gameState.matrix = matrix;
 
-        ConnectFourImplV3 connectFourImplV3 = new ConnectFourImplV3();
-        connectFourImplV3.gameState = gameState;
+        ConnectFourImpl connectFourImpl = new ConnectFourImpl();
+        connectFourImpl.gameState = gameState;
 
-        connectFourImplV3.checkForWin_v1(1);
+        connectFourImpl.checkForWin(1, 0);
 
         assertEquals(score, gameState.score);
         assertEquals(win, gameState.win);

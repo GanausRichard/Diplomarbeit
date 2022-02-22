@@ -1,6 +1,6 @@
 package org.acme.impl;
 
-import org.acme.model.ConnectFourExeption;
+import org.acme.model.ConnectFourException;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -8,12 +8,12 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class ConnectFourExeptionMapper implements ExceptionMapper<ConnectFourExeption> {
+public class ConnectFourExceptionMapper implements ExceptionMapper<ConnectFourException> {
     @Override
-    public Response toResponse(ConnectFourExeption connectFourExeption) {
+    public Response toResponse(ConnectFourException connectFourException) {
         return Response.status(422)
                 .type(MediaType.TEXT_PLAIN)
-                .entity(connectFourExeption.message)
+                .entity(connectFourException.message)
                 .build();
     }
 }

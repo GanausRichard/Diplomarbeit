@@ -44,10 +44,10 @@ public enum Position {
         return i;
     }
 
-    public static Position valueOfI(int i) throws ConnectFourExeption { //get the enum from by giving an integer
+    public static Position valueOfI(int i) throws ConnectFourException { //get the enum from by giving an integer
         Position result = I_MAPPING.get(i);
         if (result == null) {
-            throw new ConnectFourExeption(i + " ist keine Position!");
+            throw new ConnectFourException(i + " ist keine Position!");
         }
         return result;
     }

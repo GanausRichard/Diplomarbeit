@@ -2,7 +2,7 @@ package org.acme;
 
 import io.vertx.core.http.HttpServerRequest;
 import org.acme.impl.ConnectFourImpl;
-import org.acme.model.ConnectFourExeption;
+import org.acme.model.ConnectFourException;
 import org.acme.model.GameState;
 import org.acme.model.Settings;
 import org.acme.model.Turn;
@@ -27,7 +27,7 @@ public class GreetingResource {
 
     @POST
     @Path("/start")
-    public Response startGame(Settings settings, @Context HttpServerRequest context) throws ConnectFourExeption {
+    public Response startGame(Settings settings, @Context HttpServerRequest context) throws ConnectFourException {
         String sessionID = "";
 
         //if user has a cookie named session stored in the browser than safe the session ID
@@ -43,15 +43,15 @@ public class GreetingResource {
 
     @POST
     @Path("/doTurn")
-    public GameState doTurn(Turn turn) throws ConnectFourExeption { return connectFour.doTurn(turn); }
+    public GameState doTurn(Turn turn) throws ConnectFourException { return connectFour.doTurn(turn); }
 
     @POST
     @Path("/doRobotTurn")
-    public GameState doRobotTurn() throws ConnectFourExeption { return connectFour.doRobotTurn(); }
+    public GameState doRobotTurn() throws ConnectFourException { return connectFour.doRobotTurn(); }
 
     @POST
     @Path("/waitForInitialState")
-    public GameState waitForAcknowledge(@Context HttpServerRequest context) throws ConnectFourExeption {
+    public GameState waitForAcknowledge(@Context HttpServerRequest context) throws ConnectFourException {
         //cookie gets deleted from users device
         if (context.getCookie("session") != null) {
             context.getCookie("session").setMaxAge(0);
