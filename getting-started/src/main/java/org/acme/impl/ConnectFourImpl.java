@@ -277,8 +277,8 @@ public class ConnectFourImpl {
     }
 
     boolean endMinMax(int depth) {
-        //if end node reached or playerMAX has won or playerMIN has won or it's a tie
-        if (depth >= gameState.END_NODE || gameState.score >= 33 || gameState.score <= -33 || isMatrixFilled()) {
+        //if end node reached or playerMAX/playerMIN has won or it's a tie
+        if (depth >= gameState.END_NODE || gameState.win || isMatrixFilled()) {
             return true;
         }
         else {
