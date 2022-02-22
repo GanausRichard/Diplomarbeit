@@ -50,13 +50,6 @@ public class StaticFilesResource {
         return resourceToString("/Website/js/doTurn.js");
     }
 
-    @GET
-    @Path("/js/doRobotTurn")
-    @Produces("application/javascript")
-    public String doRobotTurnJS() throws IOException, URISyntaxException {
-        return resourceToString("/Website/js/doRobotTurn.js");
-    }
-
     //CSS files
     @GET
     @Path("/css/startGame")

@@ -20,7 +20,14 @@ function doThisEachTurn(data) {
 	//Single player
 	if (data['settings']['gameMode'] === 'pve') {
 		if (endGame(data, 'Du hast das Spiel gewonnen.\nNicht schlecht!') === true) {
-			return;
+			if (data['initialState']) {
+				document.getElementById('endGameBtn').style.display = 'inline';
+				document.getElementById('endGameBtn').style.alignSelf = 'center';
+				return;
+			}
+			else {
+				waitUntilAcknowledged();
+			}
 		}
 		else {
 			//for next turn
@@ -31,7 +38,14 @@ function doThisEachTurn(data) {
 	//Multiplayer
 	else if (data['settings']['gameMode'] === 'pvp') {
 		if (endGame(data, getWinnersName(data) + ' hat das Spiel gewonnen.\nGratulation!') === true) {
-			return;
+			if (data['initialState']) {
+				document.getElementById('endGameBtn').style.display = 'inline';
+				document.getElementById('endGameBtn').style.alignSelf = 'center';
+				return;
+			}
+			else {
+				waitUntilAcknowledged();
+			}
 		}
 		else {
 			//for next turn
@@ -48,7 +62,14 @@ function doRobotTurn() {
 		.then(data => {
 			console.log("the robot made its decision", data);
 			if (endGame(data, "Der Roboter hat das Spiel gewonnen.\nVersuch's ein andermal!") === true) {
-				return;
+				if (data['initialState']) {
+					document.getElementById('endGameBtn').style.display = 'inline';
+					document.getElementById('endGameBtn').style.alignSelf = 'center';
+					return;
+				}
+				else {
+					waitUntilAcknowledged();
+				}
 			}
 			else {
 				//for next turn
@@ -57,22 +78,29 @@ function doRobotTurn() {
 		});
 }
 
+function waitUntilAcknowledged() {
+	//write function waitForAcknowledge in ConnnectFourImplV3
+	fetch('http://' + window.location.host + '/connectFour/waitForInitialState', {
+		method: 'POST',
+		redirect: 'follow' })
+		.then(response => response.json())
+		.then(data => { doThisEachTurn(data)});
+}
+
 function endGame(data, output) {
-	if(data['win'] === true) {
+	var endGame = false;
+
+	if (data['win'] === true) {
 		document.getElementById('inputBox').style.display = 'none';
-		document.getElementById('endGameBtn').style.display = 'inline';
-		document.getElementById('endGameBtn').style.alignSelf = 'center';
 		document.getElementById('customText').innerText = output;
-		return true;
+		endGame = true;
 	}
 	else if (data['move'] === (data['ROW_QUANTITY'] * data['COLUMN_QUANTITY'])) {
 		document.getElementById('inputBox').style.display = 'none';
-		document.getElementById('endGameBtn').style.display = 'inline';
-		document.getElementById('endGameBtn').style.alignItems = 'center';
 		document.getElementById('customText').innerText = 'Schade, ein Unetschieden!';
-		return true;
+		endGame = true;
 	}
-	return false;
+	return endGame;
 }
 
 function getWinnersName(data) {

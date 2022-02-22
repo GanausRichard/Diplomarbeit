@@ -7,47 +7,39 @@ import javax.inject.Inject;
 import java.util.UUID;
 
 @Dependent
-public class ConnectFourImplV3 {
+public class ConnectFourImpl {
 
+    //gameState gets injected in class ConnectFourImpl
     @Inject
     GameState gameState;
 
+    //the method startGame gets called once at the start of the game
     public GameState startGame(Settings settings, String sessionID) throws ConnectFourExeption {
+        //if a session ID exists and it's not the session ID of the device of the user that was playing before
+        //then an exception gets thrown
         if (gameState.sessionID != null && !sessionID.equals(gameState.sessionID)) {
             throw new ConnectFourExeption("Ein Benutzer ist bereits angemeldet!");
         }
+        //a new session ID gets created if no user is currently playing
+        //session ID and settings get inherited to the gameState object
         gameState.sessionID = UUID.randomUUID().toString();
-        gameState.move = 0;
-        gameState.score = 0;
-        gameState.win = false;
-        gameState.matrix = new int[gameState.ROW_QUANTITY][gameState.COLUMN_QUANTITY];
         gameState.settings = settings;
-
-        //gameState.timeNewLoop = 0;
-        //gameState.timeOldLoop = 0;
 
         return gameState;
     }
 
     public GameState doTurn(Turn turn) throws ConnectFourExeption {
         gameState.move++;
-        int player = gameState.PLAYER_MIN;
         int row = determineRow(turn.column);
-
-        if(gameState.settings.gameMode.equals("pvp")) {
-            if ((gameState.move % 2) == 1) {
-                player = gameState.PLAYER_MIN;
-            }
-            else if ((gameState.move % 2) == 0) {
-                player = gameState.PLAYER_MAX;
-            }
+        int player = gameState.PLAYER_MIN;
+        if(gameState.settings.gameMode.equals("pvp") && (gameState.move % 2) == 0) {
+            player = gameState.PLAYER_MAX;
         }
 
         gameState.matrix[row][turn.column] = player;
         sendPositions(takeCubeFrom(player), putCubeTo(turn.column));
 
         checkForWin_v1(player);
-        //implement "if game finished"
         //System.out.println("Duration of old loop: " + gameState.timeOldLoop);
         //System.out.println("Duration of new loop: " + gameState.timeNewLoop);
         return gameState;
@@ -62,7 +54,16 @@ public class ConnectFourImplV3 {
         sendPositions(takeCubeFrom(gameState.PLAYER_MAX), putCubeTo(column));
 
         checkForWin_v1(gameState.PLAYER_MAX);
-        //implement "if game finished"
+        return gameState;
+    }
+
+    public GameState waitForInitialState() throws ConnectFourExeption {
+        removeCubes();
+        gameState.move = 0;
+        gameState.score = 0;
+        gameState.win = false;
+        gameState.matrix = new int[gameState.ROW_QUANTITY][gameState.COLUMN_QUANTITY];
+        gameState.sessionID = null;
         return gameState;
     }
 
@@ -124,22 +125,13 @@ public class ConnectFourImplV3 {
         checkForWin_v1(gameState.PLAYER_MAX);
 
         //end minFunction
-        if (depth >= gameState.END_NODE /*|| !areMovesLeft()*/) {  //end node reached
-            return gameState.score;
-        }
-        else if (gameState.score >= 2) {                          //playerMAX has won
-            return gameState.score;
-        }
-        else if (gameState.score <= -2) {                          //playerMIN has won
-            return gameState.score;
-        }
-        else if (!areMovesLeft()) {   //tie
+        if(endMinMax(depth)) {
             return gameState.score;
         }
 
         for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
             boolean column_checked = false;
-            for (int row = 0; row < gameState.ROW_QUANTITY && !column_checked; row++) {       //determine row
+            for (int row = 0; (row < gameState.ROW_QUANTITY) && !column_checked; row++) {       //determine row
                 if (gameState.matrix[row][column] == 0) {
                     gameState.matrix[row][column] = gameState.PLAYER_MIN;        //make a move
                     depth++;
@@ -150,7 +142,7 @@ public class ConnectFourImplV3 {
                     if (beta <= alpha) {
                         return alpha;
                     }
-                    column_checked = true;        //does not repeat the do-while loop if column is already checked
+                    column_checked = true;        //does not repeat the for loop if column is already checked
                 }
             }
         }
@@ -162,16 +154,7 @@ public class ConnectFourImplV3 {
         checkForWin_v1(gameState.PLAYER_MIN);
 
         //end maxFunction
-        if (depth >= gameState.END_NODE) {  //end node reached
-            return gameState.score;
-        }
-        else if (gameState.score >= 2) {                       //playerMAX has won
-            return gameState.score;
-        }
-        else if (gameState.score <= -2) {                       //playerMIN has won
-            return gameState.score;
-        }
-        else if (!areMovesLeft()) {    //tie
+        if (endMinMax(depth)) {
             return gameState.score;
         }
 
@@ -240,7 +223,6 @@ public class ConnectFourImplV3 {
         for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
             for (int column = 0; column < (gameState.COLUMN_QUANTITY - 3); column++) {
                 streak = 0;
-                continue_loop = false;
                 // if the current position == player then next position of that diagonal gets checked
                 // the loop breaks as soon as the first position of that diagonal != player
                 // or when  4 positions of that diagonal == player
@@ -265,7 +247,6 @@ public class ConnectFourImplV3 {
         for (int row = 0; row < (gameState.ROW_QUANTITY - 3); row++) {
             for (int column = 3; column < gameState.COLUMN_QUANTITY; column++) {
                 streak = 0;
-                continue_loop = false;
                 // if the current position == player then next position of that diagonal gets checked
                 // the loop breaks as soon as the first position of that diagonal != player
                 // or when  4 positions of that diagonal == player
@@ -285,10 +266,8 @@ public class ConnectFourImplV3 {
             }
         }
 
-        /*
-        long endTime = ZonedDateTime.now().toInstant().toEpochMilli();    //for speed testing
-        gameState.timeNewLoop += (endTime - startTime);                   //for speed testing
-        */
+        //long endTime = ZonedDateTime.now().toInstant().toEpochMilli();    //for speed testing
+        //gameState.timeNewLoop += (endTime - startTime);                   //for speed testing
 
         if (win_chances > 0) {
             gameState.win = true;
@@ -300,6 +279,26 @@ public class ConnectFourImplV3 {
         else if (player == gameState.PLAYER_MAX) {
             gameState.score = win_chances;
         }
+    }
+
+    boolean endMinMax(int depth) {
+        //if end node reached or playerMAX has won or playerMIN has won or it's a tie
+        if (depth >= gameState.END_NODE || gameState.score >= 2 || gameState.score <= -2 || isMatrixFilled()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    boolean isMatrixFilled() {
+        boolean matrixFilled = false;
+        int maxPossibleMoves = gameState.COLUMN_QUANTITY * gameState.ROW_QUANTITY;
+
+        if(gameState.move >= maxPossibleMoves) {
+            matrixFilled = true;
+        }
+        return matrixFilled;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -358,40 +357,33 @@ public class ConnectFourImplV3 {
                 }
             }
         }
+        gameState.initialState = true;
     }
 
     void sendPositions(Position takeFrom, Position putTo) {
         boolean robotAcknowledged = false;
 
+        gameState.acknowledged = false;
         sendNumberToRobot(takeFrom);
-        while(robotAcknowledged = false) {
+        while(gameState.acknowledged = false) {
             //wait(500);
-            robotAcknowledged = isAcknoledged();
+            gameState.acknowledged = isAcknowledged();
         }
         sendNumberToRobot(putTo);
-        while(robotAcknowledged = false) {
+        while(gameState.acknowledged = false) {
             //wait(500);
-            robotAcknowledged = isAcknoledged();
+            gameState.acknowledged = isAcknowledged();
         }
+        gameState.initialState = false;
     }
 
     void sendNumberToRobot(Position programNumber) {    //function not finished
 
     }
 
-    boolean isAcknoledged() {   //function not finished
-        boolean acknoledged = false;
+    boolean isAcknowledged() {   //function not finished
+        boolean acknowledged = false;
 
-        return acknoledged;
-    }
-
-    boolean areMovesLeft() {
-        boolean moves_left = false;
-        int max_possible_moves = gameState.COLUMN_QUANTITY * gameState.ROW_QUANTITY;
-
-        if(gameState.move < max_possible_moves) {
-            moves_left = true;
-        }
-        return moves_left;
+        return acknowledged;
     }
 }
