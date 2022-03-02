@@ -27,25 +27,33 @@ public enum Position {
     MAIN_TOP6(10),
     MAIN_TOP7(11);
 
+    //sets an integer value for each enum
     private final int i;
-
     Position(final int i) {
         this.i = i;
     }
 
-    private static final Map<Integer, Position> I_MAPPING = new HashMap<>();    //creates a map
+    //creates a map
+    private static final Map<Integer, Position> I_MAPPING = new HashMap<>();
+
+    //mapping
     static {
-        for (Position elem : values()) {    //iterates trough all enums and assigns values to them
+        //iterates trough all enums and assigns values to them
+        for (Position elem : values()) {
             I_MAPPING.put(elem.value(), elem);
         }
     }
 
+    //get the assigned integer from an enum
     public int value() {    //get value of enum element
         return i;
     }
 
-    public static Position valueOfI(int i) throws ConnectFourException { //get the enum from by giving an integer
+    //give an integer and get the corresponding enum
+    //an exception is thrown if i is not a valid position
+    public static Position valueOfI(int i) throws ConnectFourException {
         Position result = I_MAPPING.get(i);
+        //if the corresponding enum is not found throw exception
         if (result == null) {
             throw new ConnectFourException(i + " ist keine Position!");
         }
