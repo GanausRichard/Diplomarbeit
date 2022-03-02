@@ -51,11 +51,11 @@ public class GreetingResource {
 
     @POST
     @Path("/waitForInitialState")
-    public GameState waitForAcknowledge(@Context HttpServerRequest context) throws ConnectFourException {
+    public Response waitForAcknowledge(@Context HttpServerRequest context) throws ConnectFourException {
+        GameState gameState = connectFour.waitForInitialState();
         //cookie gets deleted from users device
-        if (context.getCookie("session") != null) {
-            context.getCookie("session").setMaxAge(0);
-        }
-        return connectFour.waitForInitialState();
+        return Response.ok(gameState)
+                .cookie(new NewCookie("session", gameState.sessionID, "/", null, null, 0, false))
+                .build();
     }
 }
