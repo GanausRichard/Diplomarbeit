@@ -3,16 +3,17 @@ function getColumn(columnId) {
 
 	const column = document.getElementById("column" + columnId).value;
 	const data = {column};
-  
+
 	const myHeaders = new Headers();
 	myHeaders.append('Content-Type', 'application/json');
-  
+
 	fetch('http://' + window.location.host + '/connectFour/doTurn', {
 		method: 'POST',
 		headers: myHeaders,
-		body: JSON.stringify(data) })
+		body: JSON.stringify(data)
+	})
 		.then(response => response.json())
-		.then(data => { doThisEachTurn(data)});
+		.then(data => {doThisEachTurn(data)});
 }
 
 function doRobotTurn() {
@@ -23,18 +24,12 @@ function doRobotTurn() {
 		.then(data => {
 			console.log("the robot made its decision", data);
 			if (endGame(data, "Der Roboter hat das Spiel gewonnen.\nVersuch's ein andermal!") === true) {
-				if (data['initialState']) {
-					document.getElementById('endGameBtn').style.display = 'inline';
-					document.getElementById('endGameBtn').style.alignSelf = 'center';
-				}
-				else {
-					waitUntilAcknowledged();
-				}
+				waitUntilAcknowledged();
 			}
 			else {
 				//for next turn
 				document.getElementById('customText').innerText = 'Du bist am Zug.';
-				buttonsDisable(false);
+				buttonsDisable(false, data);
 			}
 		});
 }
@@ -45,7 +40,10 @@ function waitUntilAcknowledged() {
 		method: 'POST',
 		redirect: 'follow' })
 		.then(response => response.json())
-		.then(data => { doThisEachTurn(data)});
+		.then(data => {
+			document.getElementById('endGameBtn').style.display = 'inline';
+			document.getElementById('endGameBtn').style.alignSelf = 'center';
+		});
 }
 
 function doThisEachTurn(data) {
@@ -53,15 +51,9 @@ function doThisEachTurn(data) {
 	console.log("players turn has finished", data);
 
 	//Single player
-	if (data['settings']['gameMode'] === 'pve') {
+	if (data.settings.gameMode === 'pve') {
 		if (endGame(data, 'Du hast das Spiel gewonnen.\nNicht schlecht!') === true) {
-			if (data['initialState']) {
-				document.getElementById('endGameBtn').style.display = 'inline';
-				document.getElementById('endGameBtn').style.alignSelf = 'center';
-			}
-			else {
-				waitUntilAcknowledged();
-			}
+			waitUntilAcknowledged();
 		}
 		else {
 			//for next turn
@@ -70,15 +62,9 @@ function doThisEachTurn(data) {
 		}
 	}
 	//Multiplayer
-	else if (data['settings']['gameMode'] === 'pvp') {
+	else if (data.settings.gameMode === 'pvp') {
 		if (endGame(data, getWinnersName(data) + ' hat das Spiel gewonnen.\nGratulation!') === true) {
-			if (data['initialState']) {
-				document.getElementById('endGameBtn').style.display = 'inline';
-				document.getElementById('endGameBtn').style.alignSelf = 'center';
-			}
-			else {
-				waitUntilAcknowledged();
-			}
+			waitUntilAcknowledged();
 		}
 		else {
 			//for next turn
@@ -87,21 +73,31 @@ function doThisEachTurn(data) {
 	}
 }
 
-function buttonsDisable(disabled) {
+function buttonsDisable(disabled, data) {
 	for (let i = 1; i < 8; i++) {
+
+		//disable or enable all buttons
 		document.getElementById("column" + i).disabled = disabled;
+		//disable a button if column is already filled
+		if (data) {
+			let lastRow = data['ROW_QUANTITY'] - 1;
+			let column = i - 1;
+			if (data.matrix[lastRow][column] !== 0) {
+				document.getElementById("column" + i).disabled = true;
+			}
+		}
 	}
 }
 
 function endGame(data, output) {
 	var endGame = false;
 
-	if (data['win'] === true) {
+	if (data.win === true) {
 		document.getElementById('inputBox').style.display = 'none';
 		document.getElementById('customText').innerText = output;
 		endGame = true;
 	}
-	else if (data['move'] === (data['ROW_QUANTITY'] * data['COLUMN_QUANTITY'])) {
+	else if (data.move === (data.ROW_QUANTITY * data.COLUMN_QUANTITY)) {
 		document.getElementById('inputBox').style.display = 'none';
 		document.getElementById('customText').innerText = 'Schade, ein Unetschieden!';
 		endGame = true;
@@ -110,20 +106,20 @@ function endGame(data, output) {
 }
 
 function getWinnersName(data) {
-	if ((data['move'] % 2) === 1) {
+	if ((data.move % 2) === 1) {
 		return data['settings']['name1'];
 	}
-	else if ((data['move'] % 2) === 0) {
-		return data['settings']['name2'];
+	else if ((data.move % 2) === 0) {
+		return data.settings.name2;
 	}
 }
 
 function getNameForNextTurn(data) {
-	if ((data['move'] % 2) === 1) {
-		return data['settings']['name2'];
+	if ((data.move % 2) === 1) {
+		return data.settings.name2;
 	}
-	else if ((data['move'] % 2) === 0) {
-		return data['settings']['name1'];
+	else if ((data.move % 2) === 0) {
+		return data.settings.name1;
 	}
 }
 

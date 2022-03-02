@@ -25,6 +25,9 @@ public class ConnectFourImpl {
         gameState.sessionID = UUID.randomUUID().toString();
         gameState.settings = settings;
         gameState.win = false;
+        gameState.move = 0;
+        gameState.score = 0;
+        gameState.matrix = new int[gameState.ROW_QUANTITY][gameState.COLUMN_QUANTITY];
 
         return gameState;
     }
@@ -33,14 +36,12 @@ public class ConnectFourImpl {
         gameState.move++;
         int row = determineRow(turn.column);
         int player = gameState.PLAYER_MIN;
-        if(gameState.settings.gameMode.equals("pvp") && (gameState.move % 2) == 0) {
+        if (gameState.settings.gameMode.equals("pvp") && (gameState.move % 2) == 0) {
             player = gameState.PLAYER_MAX;
         }
-
         gameState.matrix[row][turn.column] = player;
         sendPositions(takeCubeFrom(player), putCubeTo(turn.column));
         gameState.initialState = false;
-
         checkForWin(player, 0);
         return gameState;
     }
@@ -59,9 +60,6 @@ public class ConnectFourImpl {
 
     public GameState waitForInitialState() throws ConnectFourException {
         removeCubes();
-        gameState.move = 0;
-        gameState.score = 0;
-        gameState.matrix = new int[gameState.ROW_QUANTITY][gameState.COLUMN_QUANTITY];
         gameState.sessionID = null;
         return gameState;
     }
@@ -371,7 +369,10 @@ public class ConnectFourImpl {
     }
 
     void sendNumberToRobot(Position programNumber) {    //function not finished
-        //send program number to the robot
+        int bitNumber = Integer.bitCount(programNumber.value()); //counts all 1s of binary value of programNumber
+        boolean parity = (bitNumber % 2) == 1; //set parity bit for even parity
+
+        //send programNumber.value() and parity to the robot
     }
 
     boolean isAcknowledged() {   //function not finished

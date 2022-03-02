@@ -1,3 +1,4 @@
+
 package org.acme.impl;
 
 import org.acme.model.GameState;
@@ -17,7 +18,7 @@ public class ConnectFourImplV3Test {
                 { 0, 0, 0, 0, 0, 0, 0 },
                 { 0, 0, 0, 0, 0, 0, 0 }
         };
-        testCheckForWin_v1(matrix, -1, true);
+        testCheckForWin_v1(matrix, -11, true);
     }
 
     @Test
@@ -30,7 +31,7 @@ public class ConnectFourImplV3Test {
                 { 0, 0, 0, 0, 0, 0, 0 },
                 { 0, 0, 0, 0, 0, 0, 0 }
         };
-        testCheckForWin_v1(matrix, -1, true);
+        testCheckForWin_v1(matrix, -11, true);
     }
 
     @Test
@@ -43,7 +44,7 @@ public class ConnectFourImplV3Test {
                 { 0, 0, 0, 0, 0, 1, 0 },
                 { 0, 0, 0, 0, 0, 0, 1 }
         };
-        testCheckForWin_v1(matrix, -3, true);
+        testCheckForWin_v1(matrix, -33, true);
     }
 
     @Test
@@ -56,7 +57,7 @@ public class ConnectFourImplV3Test {
                 { 0, 0, 0, 0, 0, 1, 0 },
                 { 0, 0, 0, 0, 0, 0, 1 }
         };
-        testCheckForWin_v1(matrix, -1, true);
+        testCheckForWin_v1(matrix, -11, true);
     }
 
     @Test
@@ -69,7 +70,7 @@ public class ConnectFourImplV3Test {
                 { 0, 0, 0, 0, 0, 1, 0 },
                 { 0, 0, 0, 0, 0, 0, 0 }
         };
-        testCheckForWin_v1(matrix, -1, true);
+        testCheckForWin_v1(matrix, -11, true);
     }
 
     @Test
@@ -82,7 +83,7 @@ public class ConnectFourImplV3Test {
                 { 0, 1, 0, 0, 0, 0, 0 },
                 { 1, 0, 0, 0, 0, 0, 0 }
         };
-        testCheckForWin_v1(matrix, -1, true);
+        testCheckForWin_v1(matrix, -11, true);
     }
 
     @Test
@@ -95,7 +96,7 @@ public class ConnectFourImplV3Test {
                 { 1, 0, 0, 0, 0, 0, 1 },
                 { 0, 0, 0, 0, 0, 0, 0 }
         };
-        testCheckForWin_v1(matrix, -2, true);
+        testCheckForWin_v1(matrix, -22, true);
     }
 
     @Test
@@ -108,7 +109,7 @@ public class ConnectFourImplV3Test {
                 { 0, 0, 0, 0, 0, 0, 0 },
                 { 1, 1, 1, 1, 0, 0, 0 }
         };
-        testCheckForWin_v1(matrix, -2, true);
+        testCheckForWin_v1(matrix, -22, true);
     }
 
     @Test
@@ -121,7 +122,7 @@ public class ConnectFourImplV3Test {
                 { 0, 0, 0, 0, 0, 0, 0 },
                 { 0, 0, 0, 1, 1, 1, 1 }
         };
-        testCheckForWin_v1(matrix, -2, true);
+        testCheckForWin_v1(matrix, -22, true);
     }
 
     @Test
@@ -134,7 +135,7 @@ public class ConnectFourImplV3Test {
                 { 0, 0, 0, 1, 0, 0, 0 },
                 { 0, 0, 0, 1, 0, 0, 0 }
         };
-        testCheckForWin_v1(matrix, -2, true);
+        testCheckForWin_v1(matrix, -22, true);
     }
 
     @Test
@@ -147,7 +148,7 @@ public class ConnectFourImplV3Test {
                 { 0, 0, 0, 0, 0, 0, 0 },
                 { 0, 0, 0, 0, 0, 0, 0 }
         };
-        testCheckForWin_v1(matrix, -1, true);
+        testCheckForWin_v1(matrix, -11, true);
     }
 
     @Test
@@ -160,10 +161,8 @@ public class ConnectFourImplV3Test {
                 { 1, 0, 0, 0, 0, 0, 1 },
                 { 0, 0, 0, 0, 0, 0, 0 }
         };
-        testCheckForWin_v1(matrix, -2, true);
+        testCheckForWin_v1(matrix, -22, true);
     }
-
-
 
     void testCheckForWin_v1(int[][] matrix, int score, boolean win) {
 
