@@ -16,6 +16,8 @@
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>2.1.1.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+    <easymodbus.version>1.0.0</easymodbus.version>
+    <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -29,6 +31,11 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+    <dependency>
+      <groupId>easymodbus.group</groupId>
+      <artifactId>easymodbus</artifactId>
+      <version>${easymodbus.version}</version>
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
@@ -54,6 +61,29 @@
   </dependencies>
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>${maven-install-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>install-external-non-maven1-jar</id>
+            <phase>initialize</phase>
+            <configuration>
+              <repositoryLayout>default</repositoryLayout>
+              <groupId>easymodbus.group</groupId>
+              <artifactId>easymodbus</artifactId>
+              <version>${easymodbus.version}</version>
+              <file>${project.basedir}/libs/EasyModbusJava.jar</file>
+              <packaging>jar</packaging>
+              <generatePom>true</generatePom>
+            </configuration>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
