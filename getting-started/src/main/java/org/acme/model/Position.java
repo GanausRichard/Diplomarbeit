@@ -33,7 +33,7 @@ public enum Position {
         this.i = i;
     }
 
-    //creates a map
+    //create a map
     private static final Map<Integer, Position> I_MAPPING = new HashMap<>();
 
     //mapping
@@ -44,16 +44,15 @@ public enum Position {
         }
     }
 
-    //get the assigned integer from an enum
-    public int value() {    //get value of enum element
+    //get value of enum element
+    public int value() {
         return i;
     }
 
-    //give an integer and get the corresponding enum
-    //an exception is thrown if i is not a valid position
+    //pass value and get corresponding enum
     public static Position valueOfI(int i) throws ConnectFourException {
         Position result = I_MAPPING.get(i);
-        //if the corresponding enum is not found throw exception
+        //an exception is thrown if i is not a valid position
         if (result == null) {
             throw new ConnectFourException(i + " ist keine Position!");
         }
