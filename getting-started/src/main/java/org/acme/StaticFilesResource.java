@@ -10,14 +10,17 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.Scanner;
 
+//this class is responsible for file handling (html, javascript, css)
+
 @Path("/staticFiles")
 @Consumes(MediaType.APPLICATION_JSON)
 public class StaticFilesResource {
 
+    //converts a resource (e.g. js file path) into a string
     private String resourceToString(String resource) {
         InputStream is = getClass().getClassLoader().getResourceAsStream(resource);
         Scanner s = new Scanner(is, "UTF-8").useDelimiter("\\A");
-        return s.hasNext()?s.next():"Error";
+        return s.hasNext()?s.next(): "Error";
     }
 
     //converts a resource (e.g. js file path) into a string
@@ -28,6 +31,7 @@ public class StaticFilesResource {
     }
 
     //HTML files
+
     @GET
     @Path("/html/startGame")
     @Produces(MediaType.TEXT_HTML)
