@@ -1,7 +1,5 @@
 package org.acme.model;
 
-import de.re.easymodbus.modbusclient.ModbusClient;
-
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped //ApplicationScoped means that the class is usable in the whole application
@@ -20,7 +18,6 @@ public class GameState {
     public Settings settings;
     public int[][] matrix = new int[ROW_QUANTITY][COLUMN_QUANTITY]; //contains the cubes' positions
     public String sessionID = null; //the session ID prevents multiple device access
+    public boolean acknowledged = true; //indicates if the robot is finished with his movements
     public boolean initialState = true; //indicates if the all cubes are in the starting position
-
-    public ModbusClient modbusClient = new ModbusClient(); //necessary for codesys communication
 }
