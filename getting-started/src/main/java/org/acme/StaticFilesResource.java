@@ -39,7 +39,46 @@ public class StaticFilesResource {
         return resourceToString("/Website/html/doTurn.html");
     }
 
+    //image files
+    /*
+    @GET
+    @Path("/img/background")
+    @Produces("image/png")
+    public File backgroundPNG() throws IOException, URISyntaxException {
+        return new File("/Website/img/background.png");
+    }
+
+    @GET
+    @Path("/img/emptyPlayingField")
+    @Produces("image/png")
+    public File emptyPlayingFieldPNG() throws IOException, URISyntaxException {
+        return new File("/Website/img/emptyPlayingField.png");
+    }
+
+    @GET
+    @Path("/img/playstoneRed")
+    @Produces("image/png")
+    public File playstoneRedPNG() throws IOException, URISyntaxException {
+        return new File("/Website/img/playstoneRed.png");
+    }
+
+    @GET
+    @Path("/img/playstoneYellow")
+    @Produces("image/png")
+    public File playstoneYellowPNG() throws IOException, URISyntaxException {
+        return new File("/Website/img/playstoneYellow.png");
+    }
+
+    @GET
+    @Path("/img/connectFourIcon")
+    @Produces("image/ico")
+    public File connectFourICON() throws IOException, URISyntaxException {
+        return new File("/Website/img/connectFourIcon.ico");
+    }
+    */
+
     //JS files
+
     @GET
     @Path("/js/startGame")
     @Produces("application/javascript")
@@ -55,10 +94,18 @@ public class StaticFilesResource {
     }
 
     //CSS files
+
     @GET
     @Path("/css/startGame")
     @Produces("text/css")
     public String startGameCSS() throws IOException, URISyntaxException {
         return resourceToString("/Website/css/startGame.css");
+    }
+
+    @GET
+    @Path("/css/doTurn")
+    @Produces("text/css")
+    public String doTurnCSS() throws IOException, URISyntaxException {
+        return resourceToString("/Website/css/doTurn.css");
     }
 }

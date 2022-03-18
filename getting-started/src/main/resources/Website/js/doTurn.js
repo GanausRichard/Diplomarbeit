@@ -23,6 +23,8 @@ function doRobotTurn() {
 		.then(response => response.json())
 		.then(data => {
 			console.log("the robot made its decision", data);
+			displayPlayingField(data);
+
 			if (endGame(data, "Der Roboter hat das Spiel gewonnen.\nVersuch's ein andermal!") === true) {
 				waitUntilAcknowledged();
 			}
@@ -49,6 +51,7 @@ function waitUntilAcknowledged() {
 function doThisEachTurn(data) {
 	//console log
 	console.log("players turn has finished", data);
+	displayPlayingField(data);
 
 	//Single player
 	if (data.settings.gameMode === 'pve') {
@@ -103,6 +106,26 @@ function endGame(data, output) {
 		endGame = true;
 	}
 	return endGame;
+}
+
+function displayPlayingField(data) {
+	let column = 0;
+	do {
+		let row = 0;
+		do {
+			if (data.matrix[row][column] === 0) {
+				document.getElementById('playingFieldC' + column + 'R' + row).src = '../img/emptyPlayingField';
+			}
+			else if (data.matrix[row][column] === 1) {
+				document.getElementById('playfieldC' + column + 'R' + row).src = '../img/playstoneYellow';
+			}
+			else {
+				document.getElementById('playfieldC' + column + 'R' + row).src = '../img/playstoneRed';
+			}
+			row++;
+		} while(row <= data.ROW_QUANTITY)
+		column++;
+	} while(column <= data.COLUMN_QUANTITY)
 }
 
 function getWinnersName(data) {
