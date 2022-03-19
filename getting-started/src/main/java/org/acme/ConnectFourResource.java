@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
 @Path("/connectFour")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class GreetingResource {
+public class ConnectFourResource {
 
     //create class instance
     @Inject

@@ -1,5 +1,5 @@
 function getColumn(columnId) {
-	buttonsDisable(true);
+		buttonsDisable(true);
 
 	const column = document.getElementById("column" + columnId).value;
 	const data = {column};
@@ -66,6 +66,8 @@ function doThisEachTurn(data) {
 	}
 	//Multiplayer
 	else if (data.settings.gameMode === 'pvp') {
+		//enables buttons
+		buttonsDisable(false, data);
 		if (endGame(data, getWinnersName(data) + ' hat das Spiel gewonnen.\nGratulation!') === true) {
 			waitUntilAcknowledged();
 		}
@@ -78,7 +80,6 @@ function doThisEachTurn(data) {
 
 function buttonsDisable(disabled, data) {
 	for (let i = 1; i < 8; i++) {
-
 		//disable or enable all buttons
 		document.getElementById("column" + i).disabled = disabled;
 		//disable a button if column is already filled
