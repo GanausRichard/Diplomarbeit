@@ -32,7 +32,7 @@ public class ConnectFourImpl {
         gameState.matrix = new int[gameState.ROW_QUANTITY][gameState.COLUMN_QUANTITY];
         //connect to modbusClient for codesys communication
         gameState.modbusClient.Connect("172.31.1.146", 22);
-        configureAutExtInterface(); //for proper robot usage
+        //configureAutExtInterface(); //for proper robot usage
 
         return gameState;
     }
@@ -66,7 +66,7 @@ public class ConnectFourImpl {
     public GameState waitForInitialState() throws ConnectFourException, IOException, ModbusException {
         removeCubes();
         gameState.sessionID = null;
-        configureAutExtInterface(); //reset
+        //configureAutExtInterface(); //reset
         return gameState;
     }
 
