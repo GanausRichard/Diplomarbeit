@@ -25,7 +25,10 @@ public enum Position {
     MAIN_TOP4(8),
     MAIN_TOP5(9),
     MAIN_TOP6(10),
-    MAIN_TOP7(11);
+    MAIN_TOP7(11),
+    RETURN_FIRST_ROW(23),
+    RETURN_REMAINING_ROWS(24),
+    RETURN_END(25);
 
     private final int i;
 

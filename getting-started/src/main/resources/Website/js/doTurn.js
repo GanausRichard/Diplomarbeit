@@ -22,6 +22,7 @@ function doRobotTurn() {
 		redirect: 'follow' })
 		.then(response => response.json())
 		.then(data => {
+			//console log and update the playing field
 			console.log("the robot made its decision", data);
 			displayPlayingField(data);
 
@@ -49,7 +50,7 @@ function waitUntilAcknowledged() {
 }
 
 function doThisEachTurn(data) {
-	//console log
+	//console log and update the playing field
 	console.log("players turn has finished", data);
 	displayPlayingField(data);
 
@@ -103,7 +104,7 @@ function endGame(data, output) {
 	}
 	else if (data.move === (data.ROW_QUANTITY * data.COLUMN_QUANTITY)) {
 		document.getElementById('inputBox').style.display = 'none';
-		document.getElementById('customText').innerText = 'Schade, ein Unetschieden!';
+		document.getElementById('customText').innerText = 'Schade, ein Unentschieden!';
 		endGame = true;
 	}
 	return endGame;

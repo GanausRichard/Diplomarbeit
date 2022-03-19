@@ -1,5 +1,6 @@
 package org.acme;
 
+import de.re.easymodbus.exceptions.ModbusException;
 import io.vertx.core.http.HttpServerRequest;
 import org.acme.impl.ConnectFourImpl;
 import org.acme.model.ConnectFourException;
@@ -16,6 +17,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 
 @Path("/connectFour")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -29,7 +31,7 @@ public class ConnectFourResource {
     //this Response function gets called by the .../start post request
     @POST
     @Path("/start")
-    public Response startGame(Settings settings, @Context HttpServerRequest context) throws ConnectFourException {
+    public Response startGame(Settings settings, @Context HttpServerRequest context) throws ConnectFourException, IOException {
         String sessionID = "";
 
         //if user has a cookie named session stored in the browser than save its value as session ID
@@ -47,17 +49,17 @@ public class ConnectFourResource {
     //this GameState function gets called by the .../doTurn post request
     @POST
     @Path("/doTurn")
-    public GameState doTurn(Turn turn) throws ConnectFourException { return connectFour.doTurn(turn); }
+    public GameState doTurn(Turn turn) throws ConnectFourException, IOException, ModbusException { return connectFour.doTurn(turn); }
 
     //this GameState function gets called by the .../doRobotTurn post request
     @POST
     @Path("/doRobotTurn")
-    public GameState doRobotTurn() throws ConnectFourException { return connectFour.doRobotTurn(); }
+    public GameState doRobotTurn() throws ConnectFourException, IOException, ModbusException { return connectFour.doRobotTurn(); }
 
     //this Response function gets called by the .../waitForAcknowledge post request
     @POST
     @Path("/waitForInitialState")
-    public Response waitForAcknowledge(@Context HttpServerRequest context) throws ConnectFourException {
+    public Response waitForAcknowledge(@Context HttpServerRequest context) throws ConnectFourException, IOException, ModbusException {
         //wait until all cubes are in the starting position and update the gameState object
         GameState gameState = connectFour.waitForInitialState();
         //build a Response object consisting of gameState and delete the cookie => return the Response object
