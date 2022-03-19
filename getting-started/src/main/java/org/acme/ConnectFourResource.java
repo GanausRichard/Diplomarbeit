@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
 @Path("/connectFour")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class GreetingResource {
+public class ConnectFourResource {
 
     @Inject
     ConnectFourImpl connectFour;
@@ -52,6 +52,7 @@ public class GreetingResource {
     @POST
     @Path("/waitForInitialState")
     public Response waitForAcknowledge(@Context HttpServerRequest context) throws ConnectFourException {
+        //wait until all cubes are in the starting position and update the gameState object
         GameState gameState = connectFour.waitForInitialState();
         //cookie gets deleted from users device
         return Response.ok(gameState)

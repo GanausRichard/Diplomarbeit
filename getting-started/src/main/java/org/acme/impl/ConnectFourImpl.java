@@ -59,7 +59,7 @@ public class ConnectFourImpl {
     }
 
     public GameState waitForInitialState() throws ConnectFourException {
-        removeCubes();
+        //removeCubes();
         gameState.sessionID = null;
         return gameState;
     }

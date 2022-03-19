@@ -20,6 +20,13 @@ public class StaticFilesResource {
         return s.hasNext()?s.next():"Error";
     }
 
+    //converts a resource (e.g. js file path) into a string
+    private byte[] resourceToByteArray(String resource) throws IOException {
+        InputStream is = getClass().getClassLoader().getResourceAsStream(resource);
+        byte[] bytes = is.readAllBytes();
+        return bytes;
+    }
+
     //HTML files
     @GET
     @Path("/html/startGame")
@@ -35,7 +42,45 @@ public class StaticFilesResource {
         return resourceToString("/Website/html/doTurn.html");
     }
 
+    //image files
+
+    @GET
+    @Path("/img/background.png")
+    @Produces("image/png")
+    public byte[] backgroundPNG() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/background.png");
+    }
+
+    @GET
+    @Path("/img/emptyPlayingField.png")
+    @Produces("image/png")
+    public byte[] emptyPlayingFieldPNG() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/emptyPlayingField.png");
+    }
+
+    @GET
+    @Path("/img/playstoneRed.png")
+    @Produces("image/png")
+    public byte[] playstoneRedPNG() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/playstoneRed.png");
+    }
+
+    @GET
+    @Path("/img/playstoneYellow.png")
+    @Produces("image/png")
+    public byte[] playstoneYellowPNG() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/playstoneYellow.png");
+    }
+
+    @GET
+    @Path("/img/connectFourIcon.ico")
+    @Produces("image/ico")
+    public byte[] connectFourICON() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/connectFourIcon.ico");
+    }
+
     //JS files
+
     @GET
     @Path("/js/startGame")
     @Produces("application/javascript")
@@ -51,10 +96,18 @@ public class StaticFilesResource {
     }
 
     //CSS files
+
     @GET
     @Path("/css/startGame")
     @Produces("text/css")
     public String startGameCSS() throws IOException, URISyntaxException {
         return resourceToString("/Website/css/startGame.css");
+    }
+
+    @GET
+    @Path("/css/doTurn")
+    @Produces("text/css")
+    public String doTurnCSS() throws IOException, URISyntaxException {
+        return resourceToString("/Website/css/doTurn.css");
     }
 }

@@ -1,0 +1,198 @@
+:root {
+--black: #2a2d33;
+--white: #ffffff;
+--orange:#EA741A;
+--lightgrey: linear-gradient(to bottom right, rgb(230, 230, 230), rgb(180, 180, 180));
+}
+
+body {
+  /*background-color:grey;*/
+  background-image: url(../img/background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  font-size: 20px;
+}
+
+/* 4 Gewinnt Schrift font*/
+@font-face {
+  font-family: neon;
+  src: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/707108/neon.ttf);
+}
+.container {
+  display: block;
+  width: 77%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10%;
+}
+.neon {
+  font-family: neon;
+  color: #FB4264;
+  font-size: 17vw;
+  line-height: 6vw;
+  text-shadow: 0 0 3vw #F40A35;
+}
+.flux {
+  font-family: neon;
+  color: #426DFB;
+  font-size: 15vw;
+  line-height: 6vw;
+  text-shadow: 0 0 3vw #2356FF;
+}
+.neon {
+  animation: neon 6s ease infinite;
+  -moz-animation: neon 6s ease infinite;
+  -webkit-animation: neon 6s ease infinite;
+}
+@keyframes neon {
+  0%,
+  100% {
+    text-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw #FED128, .5vw .5vw .1vw #806914;
+    color: #FED128;
+  }
+  50% {
+    text-shadow: 0 0 .5vw #800E0B, 0 0 1.5vw #800E0B, 0 0 5vw #800E0B, 0 0 5vw #800E0B, 0 0 .2vw #800E0B, .5vw .5vw .1vw #40340A;
+    color: #806914;
+  }
+}
+.flux {
+  animation: flux 7s linear infinite;
+  -moz-animation: flux 7s linear infinite;
+  -webkit-animation: flux 7s linear infinite;
+  -o-animation: flux 7s linear infinite;
+}
+@keyframes flux {
+  0%,
+  100% {
+    text-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
+    color: #28D7FE;
+  }
+  50% {
+    text-shadow: 0 0 .5vw #082180, 0 0 1.5vw #082180, 0 0 5vw #082180, 0 0 5vw #082180, 0 0 .2vw #082180, .5vw .5vw .1vw #0A3940;
+    color: #146C80;
+  }
+}
+
+select{
+  margin-left: 50px;
+  font-size: 1.5rem;
+  padding: 1em 1.5em;
+  display: none;
+}
+
+/*div collum*/
+.buttons{
+  display: block;
+  width: auto;
+  height: 94px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8%;
+  margin-bottom: 10%;
+  text-align: center;
+}
+
+#customText{
+  margin-top: 3%;
+}
+
+/*button collum*/
+button{
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-color: var(--orange);
+  border: none;
+  font-size: 30px;
+  color: var(--white);
+  padding: 30px 40px;
+  border-radius: 20px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.4s;
+}
+button:hover{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #d26614;
+  transform: translateY(-0.4em);
+}
+button:focus{
+  background-color: #d26614;
+  transform: translateY(-0.8em);
+}
+
+/*Spielfeld*/
+.playingField{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
+  width: 730px;
+  height: 625px;
+  margin-bottom:20px;
+  border: 2px solid blue;
+  border-radius: 50px;
+  background-color: #00a2e8;
+}
+
+/*
+.playingFieldImage{
+  content: url(../img/emptyPlayingField.png);
+}
+*/
+
+/* radius Spielfeld */
+#playingFieldC0R5{
+  border-radius: 50px;
+}
+#playingFieldC6R5{
+  border-radius: 50px;
+}
+#playingFieldC0R0{
+  border-radius: 50px;
+}
+#playingFieldC6R0{
+  border-radius: 50px;
+}
+
+/*Chip test*/
+.chip{
+    position: relative;
+    width: 55px;
+    height: 55px;
+    left: 323px;
+    background-color: blue;
+    border-radius: 27.5px;
+    transition: top 1s ,background-color 1s, transform 1s;
+    /*Ausgeschaltet*/
+    display: none;
+    }
+
+/*submit button*/
+.submit{
+  display: block;
+  width: auto;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 3%;
+  background: var(--orange);
+  border: none;
+  font-size: 25px;
+  color: var(--white);
+  padding: 20px 40px;
+  border-radius: 40px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
+.submit:hover{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #d26614;
+  transform: translateY(-0.15em);
+}
+.submit:focus{
+  background-color: #d26614;
+  transform: translateY(0);
+}

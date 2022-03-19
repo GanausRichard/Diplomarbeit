@@ -1,5 +1,5 @@
 function getColumn(columnId) {
-	buttonsDisable(true);
+		buttonsDisable(true);
 
 	const column = document.getElementById("column" + columnId).value;
 	const data = {column};
@@ -23,6 +23,8 @@ function doRobotTurn() {
 		.then(response => response.json())
 		.then(data => {
 			console.log("the robot made its decision", data);
+			displayPlayingField(data);
+
 			if (endGame(data, "Der Roboter hat das Spiel gewonnen.\nVersuch's ein andermal!") === true) {
 				waitUntilAcknowledged();
 			}
@@ -49,6 +51,7 @@ function waitUntilAcknowledged() {
 function doThisEachTurn(data) {
 	//console log
 	console.log("players turn has finished", data);
+	displayPlayingField(data);
 
 	//Single player
 	if (data.settings.gameMode === 'pve') {
@@ -63,6 +66,8 @@ function doThisEachTurn(data) {
 	}
 	//Multiplayer
 	else if (data.settings.gameMode === 'pvp') {
+		//enables buttons
+		buttonsDisable(false, data);
 		if (endGame(data, getWinnersName(data) + ' hat das Spiel gewonnen.\nGratulation!') === true) {
 			waitUntilAcknowledged();
 		}
@@ -75,7 +80,6 @@ function doThisEachTurn(data) {
 
 function buttonsDisable(disabled, data) {
 	for (let i = 1; i < 8; i++) {
-
 		//disable or enable all buttons
 		document.getElementById("column" + i).disabled = disabled;
 		//disable a button if column is already filled
@@ -103,6 +107,26 @@ function endGame(data, output) {
 		endGame = true;
 	}
 	return endGame;
+}
+
+function displayPlayingField(data) {
+	let column = 0;
+	do {
+		let row = 0;
+		do {
+			if (data.matrix[row][column] === 0) {
+				document.getElementById('playingFieldC' + column + 'R' + row).src = '../img/emptyPlayingField.png';
+			}
+			else if (data.matrix[row][column] === 1) {
+				document.getElementById('playingFieldC' + column + 'R' + row).src = '../img/playstoneYellow.png';
+			}
+			else {
+				document.getElementById('playingFieldC' + column + 'R' + row).src = '../img/playstoneRed.png';
+			}
+			row++;
+		} while(row < data.ROW_QUANTITY)
+		column++;
+	} while(column < data.COLUMN_QUANTITY)
 }
 
 function getWinnersName(data) {
