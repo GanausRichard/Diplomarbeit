@@ -40,7 +40,7 @@ public class ConnectFourImpl {
             player = gameState.PLAYER_MAX;
         }
         gameState.matrix[row][turn.column] = player;
-        sendPositions(takeCubeFrom(player), putCubeTo(turn.column));
+        //sendPositions(takeCubeFrom(player), putCubeTo(turn.column));
         gameState.initialState = false;
         checkForWin(player, 0);
         return gameState;
@@ -52,14 +52,14 @@ public class ConnectFourImpl {
         int row = determineRow(column);
 
         gameState.matrix[row][column] = gameState.PLAYER_MAX;
-        sendPositions(takeCubeFrom(gameState.PLAYER_MAX), putCubeTo(column));
+        //sendPositions(takeCubeFrom(gameState.PLAYER_MAX), putCubeTo(column));
 
         checkForWin(gameState.PLAYER_MAX, 0);
         return gameState;
     }
 
     public GameState waitForInitialState() throws ConnectFourException {
-        removeCubes();
+        //removeCubes();
         gameState.sessionID = null;
         return gameState;
     }

@@ -114,18 +114,18 @@ function displayPlayingField(data) {
 		let row = 0;
 		do {
 			if (data.matrix[row][column] === 0) {
-				document.getElementById('playingFieldC' + column + 'R' + row).src = '../img/emptyPlayingField';
+				document.getElementById('playingFieldC' + column + 'R' + row).src = '../img/emptyPlayingField.png';
 			}
 			else if (data.matrix[row][column] === 1) {
-				document.getElementById('playfieldC' + column + 'R' + row).src = '../img/playstoneYellow';
+				document.getElementById('playingFieldC' + column + 'R' + row).src = '../img/playstoneYellow.png';
 			}
 			else {
-				document.getElementById('playfieldC' + column + 'R' + row).src = '../img/playstoneRed';
+				document.getElementById('playingFieldC' + column + 'R' + row).src = '../img/playstoneRed.png';
 			}
 			row++;
-		} while(row <= data.ROW_QUANTITY)
+		} while(row < data.ROW_QUANTITY)
 		column++;
-	} while(column <= data.COLUMN_QUANTITY)
+	} while(column < data.COLUMN_QUANTITY)
 }
 
 function getWinnersName(data) {

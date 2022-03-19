@@ -23,6 +23,13 @@ public class StaticFilesResource {
         return s.hasNext()?s.next(): "Error";
     }
 
+    //converts a resource (e.g. js file path) into a string
+    private byte[] resourceToByteArray(String resource) throws IOException {
+        InputStream is = getClass().getClassLoader().getResourceAsStream(resource);
+        byte[] bytes = is.readAllBytes();
+        return bytes;
+    }
+
     //HTML files
 
     @GET
@@ -40,42 +47,41 @@ public class StaticFilesResource {
     }
 
     //image files
-    /*
+
     @GET
-    @Path("/img/background")
+    @Path("/img/background.png")
     @Produces("image/png")
-    public File backgroundPNG() throws IOException, URISyntaxException {
-        return new File("/Website/img/background.png");
+    public byte[] backgroundPNG() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/background.png");
     }
 
     @GET
-    @Path("/img/emptyPlayingField")
+    @Path("/img/emptyPlayingField.png")
     @Produces("image/png")
-    public File emptyPlayingFieldPNG() throws IOException, URISyntaxException {
-        return new File("/Website/img/emptyPlayingField.png");
+    public byte[] emptyPlayingFieldPNG() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/emptyPlayingField.png");
     }
 
     @GET
-    @Path("/img/playstoneRed")
+    @Path("/img/playstoneRed.png")
     @Produces("image/png")
-    public File playstoneRedPNG() throws IOException, URISyntaxException {
-        return new File("/Website/img/playstoneRed.png");
+    public byte[] playstoneRedPNG() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/playstoneRed.png");
     }
 
     @GET
-    @Path("/img/playstoneYellow")
+    @Path("/img/playstoneYellow.png")
     @Produces("image/png")
-    public File playstoneYellowPNG() throws IOException, URISyntaxException {
-        return new File("/Website/img/playstoneYellow.png");
+    public byte[] playstoneYellowPNG() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/playstoneYellow.png");
     }
 
     @GET
-    @Path("/img/connectFourIcon")
+    @Path("/img/connectFourIcon.ico")
     @Produces("image/ico")
-    public File connectFourICON() throws IOException, URISyntaxException {
-        return new File("/Website/img/connectFourIcon.ico");
+    public byte[] connectFourICON() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/connectFourIcon.ico");
     }
-    */
 
     //JS files
 
