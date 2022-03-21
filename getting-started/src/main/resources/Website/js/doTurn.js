@@ -114,13 +114,10 @@ function displayPlayingField(data) {
 	do {
 		let row = 0;
 		do {
-			if (data.matrix[row][column] === 0) {
-				document.getElementById('playingFieldC' + column + 'R' + row).src = '../img/emptyPlayingField.png';
-			}
-			else if (data.matrix[row][column] === 1) {
+			if (data.matrix[row][column] === 1) {
 				document.getElementById('playingFieldC' + column + 'R' + row).src = '../img/playstoneYellow.png';
 			}
-			else {
+			else if (data.matrix[row][column] === 2) {
 				document.getElementById('playingFieldC' + column + 'R' + row).src = '../img/playstoneRed.png';
 			}
 			row++;
