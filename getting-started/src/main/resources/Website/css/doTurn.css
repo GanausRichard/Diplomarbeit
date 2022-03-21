@@ -6,12 +6,9 @@
 }
 
 body {
-  /*background-color:grey;*/
-  background-image: url(../img/background.png);
-  background-repeat: no-repeat;
+  background-color: #E6E6FA;
+  /*background-image: url(../img/background.png);*/
   background-size: cover;
-  color: white;
-  font-size: 20px;
 }
 
 /* 4 Gewinnt Schrift font*/
@@ -94,6 +91,10 @@ select{
 }
 
 #customText{
+  color: black;
+  font-family: Verdana, sans-serif;
+  font-size: 28px;
+  font-weight: bold;
   margin-top: 3%;
 }
 
@@ -128,32 +129,31 @@ button:focus{
   margin-left: auto;
   margin-right: auto;
   margin-top: 2%;
-  width: 730px;
-  height: 625px;
+  width: 673px;
+  height: 575px;
   margin-bottom:20px;
   border: 2px solid blue;
   border-radius: 50px;
   background-color: #00a2e8;
 }
 
-/*
 .playingFieldImage{
-  content: url(../img/emptyPlayingField.png);
+  height: 91px;
+  width: 91px;
 }
-*/
 
 /* radius Spielfeld */
 #playingFieldC0R5{
-  border-radius: 50px;
+  border-radius: 50%;
 }
 #playingFieldC6R5{
-  border-radius: 50px;
+  border-radius: 50%;
 }
 #playingFieldC0R0{
-  border-radius: 50px;
+  border-radius: 50%;
 }
 #playingFieldC6R0{
-  border-radius: 50px;
+  border-radius: 50%;
 }
 
 /*Chip test*/
