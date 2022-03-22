@@ -26,7 +26,7 @@ public class ConnectFourResource {
     ConnectFourImpl connectFour;
 
     @POST
-    @Path("/start")
+    @Path("/startGame")
     public Response startGame(Settings settings, @Context HttpServerRequest context) throws ConnectFourException {
         String sessionID = "";
 

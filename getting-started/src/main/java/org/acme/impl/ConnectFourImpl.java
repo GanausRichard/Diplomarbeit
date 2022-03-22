@@ -1,6 +1,9 @@
 package org.acme.impl;
 
-import org.acme.model.*;
+import org.acme.model.ConnectFourException;
+import org.acme.model.GameState;
+import org.acme.model.Settings;
+import org.acme.model.Turn;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -40,8 +43,6 @@ public class ConnectFourImpl {
             player = gameState.PLAYER_MAX;
         }
         gameState.matrix[row][turn.column] = player;
-        sendPositions(takeCubeFrom(player), putCubeTo(turn.column));
-        gameState.initialState = false;
         checkForWin(player, 0);
         return gameState;
     }
@@ -50,17 +51,15 @@ public class ConnectFourImpl {
         gameState.move++;
         int column = findBestMove();
         int row = determineRow(column);
-
         gameState.matrix[row][column] = gameState.PLAYER_MAX;
-        sendPositions(takeCubeFrom(gameState.PLAYER_MAX), putCubeTo(column));
-
         checkForWin(gameState.PLAYER_MAX, 0);
+
         return gameState;
     }
 
     public GameState waitForInitialState() throws ConnectFourException {
-        //removeCubes();
         gameState.sessionID = null;
+
         return gameState;
     }
 
@@ -175,10 +174,10 @@ public class ConnectFourImpl {
         return alpha;
     }
 
-    public void checkForWin(int player, int depth) {    //checks every possibility for a win
+    public void checkForWin(int player, int depth) { //checks every possibility for a win
         int streak;
         int win_chances = 0;
-        int multiplier = 1 + (gameState.END_NODE - depth);    //can range from 1 to 11 (9 would be ideal)
+        int multiplier = 1 + (gameState.settings.endNode - depth); //can range from 1 to 11 (9 would be ideal)
         gameState.win = false;
 
 
@@ -188,7 +187,7 @@ public class ConnectFourImpl {
             for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
                 if (gameState.matrix[row][column] == player) {
                     streak++;
-                    if (streak >= 4) {      //at least 4 in a row
+                    if (streak >= 4) { //at least 4 in a row
                         win_chances += multiplier;
                     }
                 }
@@ -204,7 +203,7 @@ public class ConnectFourImpl {
             for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
                 if (gameState.matrix[row][column] == player) {
                     streak++;
-                    if (streak >= 4) {      //at least 4 in a row
+                    if (streak >= 4) { //at least 4 in a row
                         win_chances += multiplier;
                     }
                 }
@@ -227,7 +226,7 @@ public class ConnectFourImpl {
                     if (gameState.matrix[row + streak][column + streak] == player) {
                         streak++;
                         continue_loop = true;
-                        if (streak >= 4) {      //at least 4 in a row
+                        if (streak >= 4) { //at least 4 in a row
                             win_chances += multiplier;
                             continue_loop = false;
                         }
@@ -276,7 +275,7 @@ public class ConnectFourImpl {
 
     boolean endMinMax(int depth) {
         //if end node reached or playerMAX/playerMIN has won or it's a tie
-        if (depth >= gameState.END_NODE || gameState.win || isMatrixFilled()) {
+        if (depth >= gameState.settings.endNode || gameState.win || isMatrixFilled()) {
             return true;
         }
         else {
@@ -292,92 +291,5 @@ public class ConnectFourImpl {
             matrixFilled = true;
         }
         return matrixFilled;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////
-
-    Position takeCubeFrom(int player) { //function completed
-        if (player == gameState.PLAYER_MIN) { //take one of the players cubes from the magazine
-            gameState.countYelCubes++;
-
-            if(gameState.countYelCubes/2 == 1) {  //uneven
-                return Position.MAG_TOP_YEL1;
-            }
-            else {  //even
-                return Position.MAG_TOP_YEL2;
-            }
-        }
-        else { //take one of the robots cubes from the magazine
-            gameState.countRedCubes++;
-
-            if(gameState.countRedCubes/2 == 1) {  //uneven
-                return Position.MAG_TOP_YEL1;
-            }
-            else {  //even
-                return Position.MAG_TOP_YEL2;
-            }
-        }
-    }
-
-    Position putCubeTo(int column) throws ConnectFourException { //function completed
-        return Position.valueOfI(column + 5);
-    }
-
-    void removeCubes() throws ConnectFourException { //function completed
-
-        for (int row = 0; row < gameState.ROW_QUANTITY; row++) {
-            for (int column = 0; column < gameState.COLUMN_QUANTITY; column++) {
-                if(gameState.matrix[row][column] == gameState.PLAYER_MIN) {
-                    gameState.countYelCubes--;
-                    //check if amount of cubes is even or uneven for alternating between magazines
-                    if(gameState.countYelCubes/2 == 1) {  //uneven
-                        sendPositions(Position.valueOfI(column + 12), Position.MAG_TOP_YEL1);
-                    }
-                    else {  //even
-                        sendPositions(Position.valueOfI(column + 12), Position.MAG_TOP_YEL2);
-                    }
-                }
-                else if (gameState.matrix[row][column] == gameState.PLAYER_MAX) {
-                    gameState.countRedCubes--;
-                    //check if amount of cubes is even or uneven for alternating between magazines
-                    if(gameState.countRedCubes/2 == 1) {  //uneven
-                        sendPositions(Position.valueOfI(column + 12), Position.MAG_TOP_RED1);
-                    }
-                    else {  //even
-                        sendPositions(Position.valueOfI(column + 12), Position.MAG_TOP_RED2);
-                    }
-                }
-            }
-        }
-        gameState.initialState = true;
-    }
-
-    void sendPositions(Position takeFrom, Position putTo) {
-        gameState.acknowledged = false;
-        while(gameState.acknowledged = false) {
-            //wait(500);
-            gameState.acknowledged = isAcknowledged();
-        }
-        sendNumberToRobot(takeFrom);
-        while(gameState.acknowledged = false) {
-            //wait(500);
-            gameState.acknowledged = isAcknowledged();
-        }
-        sendNumberToRobot(putTo);
-        gameState.initialState = false;
-    }
-
-    void sendNumberToRobot(Position programNumber) {    //function not finished
-        int bitNumber = Integer.bitCount(programNumber.value()); //counts all 1s of binary value of programNumber
-        boolean parity = (bitNumber % 2) == 1; //set parity bit for even parity
-
-        //send programNumber.value() and parity to the robot
-    }
-
-    boolean isAcknowledged() {   //function not finished
-        boolean acknowledged = false;
-        //if robot acknowledged set acknowledged true
-        return acknowledged;
     }
 }

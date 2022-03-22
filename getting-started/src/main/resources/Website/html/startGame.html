@@ -15,30 +15,39 @@
 
 <body>
 	<div class="heading">
-		<h1>SPIELERDATEN</h1>
-		<p>Bitte wähle Spielmodus und Benutzernamen.</p>
+		<h1> VIER GEWINNT - SPIELERDATEN</h1>
+		<p>Bitte wähle Schwierigkeitsgrad, Spielmodus und Benutzername.</p>
 	</div>
     <div class="data-box">
 		<form id="gameSettings">
 			<div class="input">
 				<label>Spielmodus</label>
 				<div>
-					<button type="button" id="gameMode1" value="pve" onclick="getGameMode(value)">Einzelspieler</button>
-					<button type="button" id="gameMode0" value="pvp" onclick="getGameMode(value)">Mehrspieler</button>
+					<button type="button" id="gameMode1" value="pve" onclick="getGameMode(value)">Spieler vs Roboter</button>
+					<button type="button" id="gameMode0" value="pvp" onclick="getGameMode(value)">Spieler vs Spieler</button>
 				</div>
 			</div>
 
-			<div class="input" id="inputBox1">
+			<div class="input" id="inputDifficulty">
+				<label>Schwierigkeitsgrad</label>
+				<div>
+					<button type="button" id="easyDifficulty" value="5" onclick="setDifficulty(value)">Leicht</button>
+					<button type="button" id="mediumDifficulty" value="10" onclick="setDifficulty(value)">Mittel</button>
+				</div>
+			</div>
+
+			<div class="input" id="inputName1">
 				<label for="name1">Spieler 1</label>
 				<input type="text" id="name1" class="textbox" placeholder="Benutzername" />
 			</div>
 
-			<div class="input" id="inputBox2">
+			<div class="input" id="inputName2">
 				<label for="name2">Spieler 2</label>
 				<input type="text" id="name2" class="textbox" placeholder="Benutzername" />
 			</div>
+
 			<button type="submit" class="submit" id="submit" name="submit" value="submit">Weiter</button>
-			<dt style="padding-top: 20px;" id="customText"></dt>
+			<dt id="customText"></dt>
 		</form>
 	</div>
 </body>

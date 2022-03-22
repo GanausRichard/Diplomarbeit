@@ -1,18 +1,27 @@
 let gameMode = "pve";
+let difficultyLevel = 10;
 
+//if gameMode gets set to pvp, then display inputName2 (for name input)
 function getGameMode(value) {
     gameMode = value;
     if (gameMode === 'pvp') {
-        document.getElementById('inputBox2').style.display = 'block';
+        document.getElementById('inputName2').style.display = 'block';
+        document.getElementById('inputDifficulty').style.display = 'none';
     }
     else if (gameMode === 'pve') {
-        document.getElementById('inputBox2').style.display = 'none';
+        document.getElementById('inputName2').style.display = 'none';
+        document.getElementById('inputDifficulty').style.display = 'block';
     }
+}
+
+//set the difficulty of the game
+function setDifficulty(value) {
+    difficultyLevel = value;
 }
 
 window.onload = function startGame() {
     const form = document.getElementById('gameSettings');
-    document.getElementById('inputBox2').style.display = 'none';  //hide input box for name2 at when window loaded
+    document.getElementById('inputName2').style.display = 'none';  //hide input box for name2 at when window loaded
     document.getElementById('customText').style.display = 'none';  //hide input box for name2 at when window loaded
 
     form.addEventListener('submit', function (event) {
@@ -22,14 +31,15 @@ window.onload = function startGame() {
         // submit the form
         const name1 = form.elements['name1'].value;
         const name2 = form.elements['name2'].value;
-        const data = {name1, name2, gameMode};
+        const endNode = difficultyLevel;
+        const data = {name1, name2, gameMode, endNode};
 
         const myHeaders = new Headers();
         myHeaders.append('Content-Type', 'application/json');
 
         document.getElementById('customText').style.display = 'none';
 
-        fetch('http://' + window.location.host + '/connectFour/start', {
+        fetch('http://' + window.location.host + '/connectFour/startGame', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: myHeaders})
@@ -41,6 +51,7 @@ window.onload = function startGame() {
                 else {
                     document.getElementById('customText').style.display = 'block';
                     document.getElementById('customText').innerText = 'Es ist ein Fehler aufgetreten!';
+                    //if the response status is 422 (Unprocessable Entity) then display the error message
                     if (response.status === 422) {
                         response.text().then(value => document.getElementById('customText').innerText = value)
                     }
@@ -48,4 +59,3 @@ window.onload = function startGame() {
             });
     });
 }
-

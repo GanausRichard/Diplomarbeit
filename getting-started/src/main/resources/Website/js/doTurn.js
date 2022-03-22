@@ -1,3 +1,5 @@
+/*	the getColumn function is executed when a button is pressed
+	the function sends a request to the server */
 function getColumn(columnId) {
 		buttonsDisable(true);
 
