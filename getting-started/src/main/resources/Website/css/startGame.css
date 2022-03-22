@@ -1,81 +1,365 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+@import url("https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Istok Web", sans-serif;
+}
+:root {
+	--black: #191919;
+	--lightblack:#212121;
+	--white: #ffffff;
+	--orange:#EA741A;
+	--yellow:#ffce00;
+	--greybackground:rgb(170, 170, 170);
+	--red: rgb(181, 0, 0);
+	--lightgrey: linear-gradient(to bottom right, rgb(230, 230, 230), rgb(180, 180, 180));
+}
+
 body {
-	font: bold 14px Ubuntu, sans-serif;
+	background-size: cover;
+	background-color: var(--greybackground);
+	font-size: 20px;
+}
+
+/* heading Nr.1 Chose game Mode */
+.heading{
+	display: block;
+	font-size: 5em;
 	text-align: center;
-}
-
-.heading {
-	margin-top: 60px;
-}
-
-.data-box {
-	width: 280px;
-	height: 418px;
-	
-	margin-top: 40px;
-	margin-left: auto;
-	margin-right:auto;
-}
-
-.input {	
-	width: 260px;
-	
-	background-color: #D7E9EB;
-	
-	padding: 10px;
-	margin-top: 15px;
-	margin-bottom: 15px;
-	
-	transition: 2s;
-}
-
-.input:hover {
-	background-color: #9ABBBF;
-}
-
-.textbox {
-	width: 220px;
-	height: 25px;
-	
-	padding-left: 10px;
-	padding-right: 10px;
-	border: 2px solid black;
-	border-radius: 15px;
+	margin-top: 2%;
+	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 5px;
-	
+	/* Hidden */
+	display: none;
 }
-
-.textbox:focus {
-	outline: none;
+/*Pve PVP Div*/
+#gameMode{
+	background: var(--lightblack) ;
+	display: block;
+	margin-left: 8%;
+	margin-right: 8%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	padding: 20px;
+	width: auto;
+	height: 600px;
+	border-radius: 2%;
+	margin-top: 5%;
 }
-
-button {
-	height: 30px;
-
-	background-color: #FFFFFF;
-	font: 14px Ubuntu, sans-serif;
-
-	padding-left: 10px;
-	padding-right: 10px;
-	border: 2px solid black;
-	margin-left: 6px;
-	margin-right: 6px;
-	margin-top: 10px;
+.pve{
+	margin-top: 60px;
+	margin-left: 5%;
+	float: left;
+	top: 300px;
+	width: 320px;
+	height: 480px;
+	background: var(--black);
+	border-radius: 20px;
+	overflow: hidden;
 }
-
-#submit {
-	width: 120px;
-	height: 70px;
-	
-	background-color: #9ABBBF;
-	font: bold 16px Ubuntu, sans-serif;
-
-	padding:8px;
-	border: none;
-	margin-bottom: 5px;
+.pve::before {
+	content: "";
+	position: absolute;
+	top: 210px;
+	width: 320px;
+	height: 250px;
+	background: var(--red);
+	transform: skewY(345deg);
+	transition: 0.5s;
+	border-top-left-radius: 22%;
+	border-bottom-right-radius: 22%;
 }
-
-#customText {
+.pve:hover::before {
+	transform: skewY(390deg);
+}
+.pve::after {
+	content: "PVE";
+	position: relative;
+	bottom: 115px;
+	left: 20px;
+	font-weight: 600;
+	font-size: 5em;
+	color: rgba(0, 0, 0, 0.6);
+}
+.pve .imgBox {
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	padding-top: 20px;
+	z-index: 3;
+}
+/*Picture + transition*/
+.pve .imgBox img {
+	max-width: 100%;
+	transition: .5s;
+}
+.pve:hover .imgBox img {
+	max-width: 75%;
+}
+.pve .contentBox {
+	position: relative;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	z-index: 2;
+}
+/*hedline singelplayer*/
+.pve .contentBox h1 {
+	font-size: 20px;
+	color: white;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+/*Play Button*/
+.pve .contentBox .buy {
+	position: relative;
+	top: 100px;
+	opacity: 0;
+	padding: 10px 30px;
+	margin-top: 15px;
+	color: #000000;
+	text-decoration: none;
+	background: var(--red);
+	border-radius: 30px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	transition: 0.5s;
+}
+/*Play Button apperes*/
+.pve:hover .contentBox .buy {
+	top: 0;
+	opacity: 1;
+}
+.mouse {
+	height: 300px;
+	width: auto;
+}
+
+.pvp{
+	margin-top: 60px;
+	margin-left: 5%;
+	float: left;
+	top: 300px;
+	width: 320px;
+	height: 480px;
+	background: var(--black);
+	border-radius: 20px;
+	overflow: hidden;
+}
+.pvp::before {
+	content: "";
+	position: absolute;
+	top: 210px;
+	width: 320px;
+	height: 250px;
+	background: var(--yellow);
+	transform: skewY(345deg);
+	transition: 0.5s;
+	border-top-left-radius: 22%;
+	border-bottom-right-radius: 22%;
+}
+.pvp:hover::before {
+	transform: skewY(390deg);
+}
+.pvp::after {
+	content: "PVP";
+	position: relative;
+	bottom: 115px;
+	left: 20px;
+	font-weight: 600;
+	font-size: 5em;
+	color: rgba(0, 0, 0, 0.6);
+}
+.pvp .imgBox {
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 20px;
+	padding-left: 10px;
+	z-index: 1;
+}
+/*Picture + transition*/
+.pvp .imgBox img {
+	max-width: 100%;
+	transition: .5s;
+}
+.pvp:hover .imgBox img {
+	max-width: 90%;
+}
+.pvp .contentBox {
+	position: relative;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	z-index: 2;
+}
+/*headline singleplayer*/
+.pvp .contentBox h1 {
+	font-size: 20px;
+	color: white;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+/*Play Button*/
+.pvp .contentBox .buy {
+	position: relative;
+	top: 100px;
+	opacity: 0;
+	padding: 10px 30px;
+	margin-top: 15px;
+	color: #000000;
+	text-decoration: none;
+	background: var(--yellow);
+	border-radius: 30px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	transition: 0.5s;
+}
+/*Play Button appears*/
+.pvp:hover .contentBox .buy {
+	top: 0;
+	opacity: 1;
+}
+
+
+/* div for difficulty settings*/
+#difficulty {
+	display: block;
+	background-color: var(--black);
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	width: 70%;
+	margin-top: 40%;
+	border-radius: 30px;
+	/* Ausgeblendet */
+	display: none;
+}
+/* Difficulty buttons*/
+.difficultyBtn {
+	background-color: #4CAF50;
+	box-sizing: border-box;
+	width: 120px;
+	text-align: center;
+	color: white;
+	font-size: 20px;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	margin-left: 10.5%;
+	padding: 8px 20px 8px 20px;
+	border: none;
+	border-radius: 30px;
+
+	transition: 0.2s;
+}
+.difficultyBtn:hover {
+	transform: translateY(-0.3em);
+}
+#mediumDifficulty{
+	background-color: var(--yellow);
+}
+#hardDifficulty{
+	background-color: var(--red);
+}
+
+/* Styls the login Box with boders */
+.login{
+	display: block;
+	background-color: var(--greybackground);
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20%;
+	margin-bottom: 20%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	width: 70%;
+	border-radius: 4%;
+	/* Hidden */
+	display: none;
+}
+/*text login*/
+.textlogin1{
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+/* Avatar login */
+.login-avatar{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	width: 25%;
+	border-radius: 50%;
+}
+.container1{
+	padding: 2px 16px;
+}
+.buttonlog{
+	display: block;
+	margin-right: auto;
+}
+/*Username Inputfield*/
+.multilogin{
+	font-size: 15px;
+	margin-top: 5px;
+	margin-left: auto;
+}
+.loginfield{
+	width: 30%;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	transition: width 0.4s ease-in-out;
+	font-size: 24px;
+	margin-bottom: 5%;
+}
+.loginfield:focus{
+	width: 50%;
+}
+/* Usernamme_2 */
+.username_2{
+	margin-top: -2%;
+}
+/*textfeld3*/
+.textlogin3{
+	font-size: 15px;
+	margin-bottom: 20px;
+}
+/*login Button*/
+.buttonlog{
+	background-color: #4CAF50;
+	box-sizing: border-box;
+	border: none;
+	width: 120px;
+	color: white;
+	padding: 8px 20px 8px 20px;
+	text-align: center;
+	font-size: 20px;
+	border-radius: 30px;
+	margin-bottom: 40px;
+	margin-left: auto;
+	transition: 0.5s;
+}
+.buttonlog:hover{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	background-color: hsl(122, 39%, 47%);
+	transform: translateY(-0.15em);
+	width: 40%;
+}
+.buttonlog:focus{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	background-color: hsl(122, 39%, 58%);
+	transform: translateY(-0.3em);
+	color: black;
 }

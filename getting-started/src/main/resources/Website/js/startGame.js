@@ -6,11 +6,9 @@ function getGameMode(value) {
     gameMode = value;
     if (gameMode === 'pvp') {
         document.getElementById('inputName2').style.display = 'block';
-        document.getElementById('inputDifficulty').style.display = 'none';
     }
     else if (gameMode === 'pve') {
         document.getElementById('inputName2').style.display = 'none';
-        document.getElementById('inputDifficulty').style.display = 'block';
     }
 }
 
@@ -19,10 +17,16 @@ function setDifficulty(value) {
     difficultyLevel = value;
 }
 
+function hideShowDivs(hiddenElement, shownElement) {
+    document.getElementById(hiddenElement).style.display = 'none';
+    document.getElementById(shownElement).style.display = 'block';
+}
+
 window.onload = function startGame() {
     const form = document.getElementById('gameSettings');
     document.getElementById('inputName2').style.display = 'none';  //hide input box for name2 at when window loaded
     document.getElementById('customText').style.display = 'none';  //hide input box for name2 at when window loaded
+    document.getElementById('login').style.display = 'none';
 
     form.addEventListener('submit', function (event) {
         // stop form submission

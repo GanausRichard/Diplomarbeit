@@ -1,54 +1,68 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-    <title>Diplomarbeit</title>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<!--
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-	-->
+	<meta charset="utf-8">
+	<title>Vier Gewinnt</title>
+	<link rel="icon" type="image/x-icon" href="../img/userIcon.ico">
 	<link rel="stylesheet" href="../css/startGame"/>
 	<script src="../js/startGame"></script>
 </head>
 
 <body>
-	<div class="heading">
-		<h1> VIER GEWINNT - SPIELERDATEN</h1>
-		<p>Bitte wähle Schwierigkeitsgrad, Spielmodus und Benutzername.</p>
+<!-- headline -->
+<div class="heading">
+	<h1> VIER GEWINNT - SPIELERDATEN</h1>
+	<p>Bitte wähle Schwierigkeitsgrad, Spielmodus und Benutzername.</p>
+</div>
+<form id="gameSettings">
+	<!-- Chose game Mode -->
+	<div id="gameMode">
+		<div class="pve">
+			<div class="imgBox">
+				<img src="../img/singlePlayer.png" alt="single player" class="mouse">
+			</div>
+			<div class="contentBox">
+				<h1>Spieler Vs Roboter</h1>
+				<button type="button" class="buy" id="gameMode1" value="pve" onclick="getGameMode(value); hideShowDivs('gameMode','difficulty');">Weiter</button>
+			</div>
+		</div>
+		<div class="pvp">
+			<div class="imgBox">
+				<img src="../img/multiplayer.png" alt="multiplayer" class="mouse">
+			</div>
+			<div class="contentBox">
+				<h1>Spieler Vs Spieler</h1>
+				<button type="button" class="buy" id="gameMode0" value="pvp" onclick="getGameMode(value); hideShowDivs('gameMode','login');">Weiter</button>
+			</div>
+		</div>
 	</div>
-    <div class="data-box">
-		<form id="gameSettings">
-			<div class="input">
-				<label>Spielmodus</label>
-				<div>
-					<button type="button" id="gameMode1" value="pve" onclick="getGameMode(value)">Spieler vs Roboter</button>
-					<button type="button" id="gameMode0" value="pvp" onclick="getGameMode(value)">Spieler vs Spieler</button>
-				</div>
-			</div>
-
-			<div class="input" id="inputDifficulty">
-				<label>Schwierigkeitsgrad</label>
-				<div>
-					<button type="button" id="easyDifficulty" value="5" onclick="setDifficulty(value)">Leicht</button>
-					<button type="button" id="mediumDifficulty" value="10" onclick="setDifficulty(value)">Mittel</button>
-				</div>
-			</div>
-
-			<div class="input" id="inputName1">
-				<label for="name1">Spieler 1</label>
-				<input type="text" id="name1" class="textbox" placeholder="Benutzername" />
-			</div>
-
-			<div class="input" id="inputName2">
-				<label for="name2">Spieler 2</label>
-				<input type="text" id="name2" class="textbox" placeholder="Benutzername" />
-			</div>
-
-			<button type="submit" class="submit" id="submit" name="submit" value="submit">Weiter</button>
-			<dt id="customText"></dt>
-		</form>
+	<!-- select difficulty against robot -->
+	<div id="difficulty">
+		<button type="button" class="difficultyBtn" id="easyDifficulty" value="4" onclick="setDifficulty(value); hideShowDivs('difficulty', 'login');">Leicht</button>
+		<button type="button" class="difficultyBtn" id="mediumDifficulty" value="7" onclick="setDifficulty(value); hideShowDivs('difficulty', 'login');">Mittel</button>
+		<button type="button" class="difficultyBtn" id="hardDifficulty" value="10" onclick="setDifficulty(value); hideShowDivs('difficulty', 'login')">Schwierig</button>
 	</div>
+	<!-- select your name -->
+	<div id="login">
+		<div>
+			<img src="../img/avatar.png" alt="avatar" class="login-avatar">
+		</div>
+		<div class="container1">
+			<h4>Login</h4>
+			<p class="textlogin1">Welcome back! to our game <strong>Connect 4 </strong>(4 Gewinnt)</p>
+			<div class="username">
+				<b>Username</b>
+				<div class="username_1" id="inputName1">
+					<label class="multilogin" for="name1">Spieler 1</label><input type="text" class="loginfield" placeholder="Benutzername" name="uname1" id="name1"/>
+				</div>
+				<div class="username_2" id="inputName2">
+					<label class="multilogin" for="name2">Spieler 2</label><input type="text" class="loginfield" placeholder="Benutzername" name="uname" id="name2"/>
+				</div>
+				<p class="textlogin3" id="customText"></p>
+				<button type="submit" class="buttonlog" id="submit" name="submit" value="submit" spellcheck="false">Los geht's</button>
+			</div>
+		</div>
+	</div>
+</form>
 </body>
 </html>

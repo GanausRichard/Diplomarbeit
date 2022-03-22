@@ -45,6 +45,13 @@ public class StaticFilesResource {
     //image files
 
     @GET
+    @Path("/img/avatar.png") //path to file if it has to be invoked by js, html, etc.
+    @Produces("image/png")
+    public byte[] avatarPNG() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/avatar.png");
+    }
+
+    @GET
     @Path("/img/background.png")
     @Produces("image/png")
     public byte[] backgroundPNG() throws IOException, URISyntaxException {
@@ -56,6 +63,13 @@ public class StaticFilesResource {
     @Produces("image/png")
     public byte[] emptyPlayingFieldPNG() throws IOException, URISyntaxException {
         return resourceToByteArray("/Website/img/emptyPlayingField.png");
+    }
+
+    @GET
+    @Path("/img/multiplayer.png") //path to file if it has to be invoked by js, html, etc.
+    @Produces("image/png")
+    public byte[] multiplayerSVG() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/multiplayer.png");
     }
 
     @GET
@@ -73,10 +87,24 @@ public class StaticFilesResource {
     }
 
     @GET
+    @Path("/img/singlePlayer.png") //path to file if it has to be invoked by js, html, etc.
+    @Produces("image/png")
+    public byte[] singlePlayerSVG() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/singlePlayer.png");
+    }
+
+    @GET
     @Path("/img/connectFourIcon.ico")
     @Produces("image/ico")
-    public byte[] connectFourICON() throws IOException, URISyntaxException {
+    public byte[] connectFourIconICO() throws IOException, URISyntaxException {
         return resourceToByteArray("/Website/img/connectFourIcon.ico");
+    }
+
+    @GET
+    @Path("/img/userIcon.ico") //path to file if it has to be invoked by js, html, etc.
+    @Produces("image/ico")
+    public byte[] userIconICO() throws IOException, URISyntaxException {
+        return resourceToByteArray("/Website/img/userIcon.ico");
     }
 
     //JS files
