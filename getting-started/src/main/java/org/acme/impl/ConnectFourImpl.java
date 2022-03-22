@@ -189,6 +189,7 @@ public class ConnectFourImpl {
                     streak++;
                     if (streak >= 4) { //at least 4 in a row
                         win_chances += multiplier;
+                        break;
                     }
                 }
                 else {
@@ -205,6 +206,7 @@ public class ConnectFourImpl {
                     streak++;
                     if (streak >= 4) { //at least 4 in a row
                         win_chances += multiplier;
+                        break;
                     }
                 }
                 else {
@@ -222,7 +224,6 @@ public class ConnectFourImpl {
                 // the loop breaks as soon as the first position of that diagonal != player
                 // or when  4 positions of that diagonal == player
                 do {
-
                     if (gameState.matrix[row + streak][column + streak] == player) {
                         streak++;
                         continue_loop = true;
