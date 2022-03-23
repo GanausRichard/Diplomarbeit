@@ -26,7 +26,6 @@ window.onload = function startGame() {
     const form = document.getElementById('gameSettings');
     document.getElementById('inputName2').style.display = 'none';  //hide input box for name2 at when window loaded
     document.getElementById('customText').style.display = 'none';  //hide input box for name2 at when window loaded
-    document.getElementById('login').style.display = 'none';
 
     form.addEventListener('submit', function (event) {
         // stop form submission

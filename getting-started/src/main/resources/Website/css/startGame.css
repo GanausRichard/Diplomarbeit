@@ -14,7 +14,7 @@
 	--yellow:#ffce00;
 	--greybackground:rgb(170, 170, 170);
 	--red: rgb(181, 0, 0);
-	--lightgrey: linear-gradient(to bottom right, rgb(230, 230, 230), rgb(180, 180, 180));
+	--lightgrey: rgb(130, 130, 130);
 }
 
 body {
@@ -25,17 +25,20 @@ body {
 
 /* heading Nr.1 Chose game Mode */
 .heading{
-	display: block;
-	font-size: 5em;
+	font-size: 3em;
 	text-align: center;
-	margin-top: 2%;
+	margin: 10% auto;
 	width: 90%;
-	margin-left: auto;
-	margin-right: auto;
-	/* Hidden */
-	display: none;
+	font-weight: bold;
 }
-/*Pve PVP Div*/
+
+#description {
+	font-size: 0.6em;
+	font-family: sans-serif;
+	margin-top: 5%;
+}
+
+/* gameMode div */
 #gameMode{
 	background: var(--lightblack) ;
 	display: block;
@@ -46,7 +49,7 @@ body {
 	width: auto;
 	height: 600px;
 	border-radius: 2%;
-	margin-top: 5%;
+	margin-top: 8%;
 }
 .pve{
 	margin-top: 60px;
@@ -59,47 +62,43 @@ body {
 	border-radius: 20px;
 	overflow: hidden;
 }
-.pve::before {
-	content: "";
-	position: absolute;
-	top: 210px;
-	width: 320px;
-	height: 250px;
-	background: var(--red);
-	transform: skewY(345deg);
-	transition: 0.5s;
-	border-top-left-radius: 22%;
-	border-bottom-right-radius: 22%;
-}
+
 .pve:hover::before {
 	transform: skewY(390deg);
 }
+
 .pve::after {
 	content: "PVE";
 	position: relative;
-	bottom: 115px;
-	left: 20px;
+	bottom: 110px;
+	left: 30px;
 	font-weight: 600;
 	font-size: 5em;
 	color: rgba(0, 0, 0, 0.6);
 }
-.pve .imgBox {
-	position: relative;
+
+.imgBox {
+	height: 300px;
 	width: 100%;
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding-top: 20px;
 	z-index: 3;
 }
+
 /*Picture + transition*/
 .pve .imgBox img {
-	max-width: 100%;
+	width: 85%;
+	height: 95%;
 	transition: .5s;
 }
 .pve:hover .imgBox img {
-	max-width: 75%;
+	width: 75%;
+	height: 85%;
 }
+
 .pve .contentBox {
 	position: relative;
 	padding: 20px;
@@ -109,37 +108,38 @@ body {
 	flex-direction: column;
 	z-index: 2;
 }
-/*hedline singelplayer*/
+/*headline singleplayer*/
 .pve .contentBox h1 {
+	margin-top: 4%;
 	font-size: 20px;
 	color: white;
 	font-weight: 500;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+	text-shadow: 1px  1px 1px black, 1px -1px 1px black, -1px  1px 1px black, -1px -1px 1px black;
 }
 /*Play Button*/
-.pve .contentBox .buy {
+.pve .contentBox .ContinueBtn {
 	position: relative;
 	top: 100px;
 	opacity: 0;
 	padding: 10px 30px;
 	margin-top: 15px;
 	color: #000000;
+	font-weight: bold;
+	font-size: 1.1em;
 	text-decoration: none;
 	background: var(--red);
 	border-radius: 30px;
+	border: none;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	transition: 0.5s;
 }
-/*Play Button apperes*/
-.pve:hover .contentBox .buy {
+/*Play Button appears*/
+.pve:hover .contentBox .ContinueBtn {
 	top: 0;
 	opacity: 1;
-}
-.mouse {
-	height: 300px;
-	width: auto;
 }
 
 .pvp{
@@ -153,10 +153,11 @@ body {
 	border-radius: 20px;
 	overflow: hidden;
 }
+
 .pvp::before {
 	content: "";
 	position: absolute;
-	top: 210px;
+	top: 648px;
 	width: 320px;
 	height: 250px;
 	background: var(--yellow);
@@ -165,36 +166,47 @@ body {
 	border-top-left-radius: 22%;
 	border-bottom-right-radius: 22%;
 }
+.pve::before {
+	content: "";
+	position: absolute;
+	top: 648px;
+	width: 320px;
+	height: 250px;
+	background: var(--red);
+	transform: skewY(345deg);
+	transition: 0.5s;
+	border-top-left-radius: 22%;
+	border-bottom-right-radius: 22%;
+}
+
 .pvp:hover::before {
 	transform: skewY(390deg);
 }
+
 .pvp::after {
 	content: "PVP";
 	position: relative;
-	bottom: 115px;
-	left: 20px;
+	bottom: 110px;
+	left: 30px;
 	font-weight: 600;
 	font-size: 5em;
 	color: rgba(0, 0, 0, 0.6);
 }
-.pvp .imgBox {
-	position: relative;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding-top: 20px;
-	padding-left: 10px;
-	z-index: 1;
-}
+
 /*Picture + transition*/
 .pvp .imgBox img {
-	max-width: 100%;
+	width: 100%;
+	height: 85%;
+	margin-top: 100px;
+	margin-bottom: 90px;
 	transition: .5s;
 }
+
 .pvp:hover .imgBox img {
-	max-width: 90%;
+	width: 90%;
+	height: 75%;
 }
+
 .pvp .contentBox {
 	position: relative;
 	padding: 20px;
@@ -204,95 +216,106 @@ body {
 	flex-direction: column;
 	z-index: 2;
 }
+
 /*headline singleplayer*/
 .pvp .contentBox h1 {
+	margin-top: 4%;
 	font-size: 20px;
 	color: white;
 	font-weight: 500;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+	text-shadow: 1px  1px 1px black, 1px -1px 1px black, -1px  1px 1px black, -1px -1px 1px black;
 }
+
 /*Play Button*/
-.pvp .contentBox .buy {
+.pvp .contentBox .ContinueBtn {
 	position: relative;
 	top: 100px;
 	opacity: 0;
 	padding: 10px 30px;
 	margin-top: 15px;
 	color: #000000;
+	font-weight: bolder;
+	font-size: 1.1em;
 	text-decoration: none;
 	background: var(--yellow);
 	border-radius: 30px;
+	border: none;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	transition: 0.5s;
 }
+
 /*Play Button appears*/
-.pvp:hover .contentBox .buy {
+.pvp:hover .contentBox .ContinueBtn {
 	top: 0;
 	opacity: 1;
 }
 
-
 /* div for difficulty settings*/
 #difficulty {
-	display: block;
+	width: 70%;
 	background-color: var(--black);
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 15%;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	width: 70%;
-	margin-top: 40%;
 	border-radius: 30px;
-	/* Ausgeblendet */
+	/* Hidden */
 	display: none;
 }
 /* Difficulty buttons*/
 .difficultyBtn {
+	width: 160px;
 	background-color: #4CAF50;
 	box-sizing: border-box;
-	width: 120px;
 	text-align: center;
-	color: white;
-	font-size: 20px;
+	color: black;
+	font-size: 25px;
+	font-weight: bold;
 	margin-top: 5%;
 	margin-bottom: 5%;
-	margin-left: 10.5%;
+	margin-left: 6.9%;
 	padding: 8px 20px 8px 20px;
 	border: none;
 	border-radius: 30px;
 
 	transition: 0.2s;
 }
+
 .difficultyBtn:hover {
 	transform: translateY(-0.3em);
 }
+
 #mediumDifficulty{
 	background-color: var(--yellow);
 }
+
 #hardDifficulty{
 	background-color: var(--red);
 }
 
 /* Styls the login Box with boders */
-.login{
-	display: block;
-	background-color: var(--greybackground);
+#login{
+	width: 60%;
+	background-color: var(--lightgrey);
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 20%;
-	margin-bottom: 20%;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	width: 70%;
+	margin-top: 10%;
 	border-radius: 4%;
+	text-align: center;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	/* Hidden */
 	display: none;
 }
+
 /*text login*/
 .textlogin1{
 	font-size: 20px;
 	margin-bottom: 20px;
 }
+
 /* Avatar login */
 .login-avatar{
 	display: block;
@@ -303,20 +326,18 @@ body {
 	width: 25%;
 	border-radius: 50%;
 }
-.container1{
+
+.login{
 	padding: 2px 16px;
 }
-.buttonlog{
-	display: block;
-	margin-right: auto;
-}
+
 /*Username Inputfield*/
-.multilogin{
-	font-size: 15px;
-	margin-top: 5px;
-	margin-left: auto;
+.unameLabel {
+	font-size: 25px;
+	margin-right: 20px;
 }
-.loginfield{
+
+.loginField{
 	width: 30%;
 	box-sizing: border-box;
 	border: 2px solid #ccc;
@@ -324,31 +345,34 @@ body {
 	font-size: 24px;
 	margin-bottom: 5%;
 }
-.loginfield:focus{
+
+.loginField:focus{
 	width: 50%;
 }
-/* Usernamme_2 */
-.username_2{
+
+/* username 2 */
+.username2{
 	margin-top: -2%;
 }
+
 /*textfeld3*/
 .textlogin3{
 	font-size: 15px;
 	margin-bottom: 20px;
+	display: block;
 }
 /*login Button*/
 .buttonlog{
 	background-color: #4CAF50;
 	box-sizing: border-box;
 	border: none;
-	width: 120px;
+	width: 140px;
 	color: white;
 	padding: 8px 20px 8px 20px;
 	text-align: center;
 	font-size: 20px;
 	border-radius: 30px;
-	margin-bottom: 40px;
-	margin-left: auto;
+	margin: 20px auto 40px;
 	transition: 0.5s;
 }
 .buttonlog:hover{
