@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
 	<meta charset="utf-8">
 	<title>Vier Gewinnt</title>
@@ -14,6 +14,7 @@
 	<h1 id="heading">VIER GEWINNT</h1>
 	<p id="description">Bitte wähle Spielmodus, Schwierigkeitsgrad und Benutzername.</p>
 </div>
+
 <form id="gameSettings">
 	<!-- Chose game Mode -->
 	<div id="gameModeBox">
@@ -21,15 +22,18 @@
 			<div class="imgBox">
 				<img src="../img/singlePlayer.png" alt="single player">
 			</div>
+
 			<div class="contentBox">
 				<h1>Spieler Vs Roboter</h1>
 				<button type="button" class="ContinueBtn" value="pve" onclick="getGameMode(value); hideShowDivs('gameModeBox','difficulty');">Weiter</button>
 			</div>
 		</div>
+
 		<div class="gameMode" id="pvp">
 			<div class="imgBox">
 				<img src="../img/multiplayer.png" alt="multiplayer">
 			</div>
+
 			<div class="contentBox">
 				<h1>Spieler Vs Spieler</h1>
 				<button type="button" class="ContinueBtn" value="pvp" onclick="getGameMode(value); hideShowDivs('gameModeBox','login');">Weiter</button>
@@ -47,19 +51,20 @@
 	<!-- select your name -->
 	<div id="login">
 		<div>
-			<img src="../img/avatar.png" alt="avatar" id="loginPicture">
+			<img id="loginPicture" src="../img/avatar.png" alt="avatar" >
 		</div>
 
-		<div class="login">
-			<div class="username1" id="inputName1">
-				<label class="unameLabel" for="name1">Spieler 1:</label><input type="text" class="loginField" placeholder="Benutzername" name="uname1" id="name1"/>
-			</div>
-			<div class="username2" id="inputName2">
-				<label class="unameLabel" for="name2">Spieler 2:</label><input type="text" class="loginField" placeholder="Benutzername" name="uname" id="name2"/>
+		<div id="usernameBox">
+			<div class="username" id="inputName1">
+				<label class="usernameLabel" for="name1">Spieler 1:</label><input type="text" class="textInput" placeholder="Benutzername" id="name1"/>
 			</div>
 
-			<p class="textlogin3" id="customText">Viel Spaß bei dem Spiel Vier Gewinnt!</p>
-			<button type="submit" class="buttonlog" id="submit" name="submit" value="submit" spellcheck="false">Los geht's</button>
+			<div class="username" id="inputName2">
+				<label class="usernameLabel" for="name2">Spieler 2:</label><input type="text" class="textInput" placeholder="Benutzername" id="name2"/>
+			</div>
+
+			<p id="customText">Viel Spaß bei dem Spiel Vier Gewinnt!</p>
+			<button type="submit" id="loginBtn" value="submit" spellcheck="false">Los geht's</button>
 		</div>
 	</div>
 </form>

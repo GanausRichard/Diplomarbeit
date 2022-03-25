@@ -74,7 +74,7 @@ body {
 .gameMode::before {
 	content: "";
 	position: absolute;
-	top: 790px;
+	top: 795px;
 	width: 320px;
 	height: 250px;
 	transform: skewY(345deg);
@@ -193,9 +193,7 @@ body {
 #difficulty {
 	width: 70%;
 	background-color: var(--black);
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 15%;
+	margin: 15% auto 0;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	border-radius: 30px;
 	/* Hidden */
@@ -204,59 +202,42 @@ body {
 /* Difficulty buttons*/
 .difficultyBtn {
 	width: 160px;
-	background-color: #4CAF50;
 	box-sizing: border-box;
 	text-align: center;
 	color: black;
 	font-size: 25px;
 	font-weight: bold;
-	margin-top: 5%;
-	margin-bottom: 5%;
-	margin-left: 6.9%;
+	margin: 5% 0 5% 6.9%;
 	padding: 8px 20px 8px 20px;
 	border: none;
 	border-radius: 30px;
-
 	transition: 0.2s;
 }
-
 .difficultyBtn:hover {
 	transform: translateY(-0.3em);
 }
-
+#easyDifficulty {
+	background-color: #4CAF50;
+}
 #mediumDifficulty{
 	background-color: var(--yellow);
 }
-
 #hardDifficulty{
 	background-color: var(--red);
 }
 
-/* Styls the login Box with boders */
+/* styles the login Bbox with borders */
 #login{
 	width: 60%;
 	background-color: var(--lightgrey);
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 10%;
+	margin: 10% auto;
 	border-radius: 4%;
 	text-align: center;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	/* Hidden */
 	display: none;
 }
-
-/*text login*/
-.textlogin1{
-	font-size: 20px;
-	margin-bottom: 20px;
-}
-
-.login {
-	padding: 2px 16px;
-}
-
-/* Avatar login */
+/* avatar picture in login */
 #loginPicture {
 	display: block;
 	margin-left: auto;
@@ -267,15 +248,18 @@ body {
 	border-radius: 50%;
 }
 
-
-
-/*Username Inputfield*/
-.unameLabel {
+#usernameBox {
+	padding: 2px 16px;
+}
+.username {
+	margin-top: -2%;
+}
+/* label for username input field */
+.usernameLabel {
 	font-size: 25px;
 	margin-right: 20px;
 }
-
-.loginField{
+.textInput {
 	width: 30%;
 	box-sizing: border-box;
 	border: 2px solid #ccc;
@@ -283,25 +267,20 @@ body {
 	font-size: 24px;
 	margin-bottom: 5%;
 }
-
-.loginField:focus{
+.textInput:focus{
 	width: 50%;
 }
 
-/* username 2 */
-.username2{
-	margin-top: -2%;
-}
-
-/*textfeld3*/
-.textlogin3{
+/* text field 3 */
+#customText {
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 20px;
 	display: block;
 }
-/*login Button*/
-.buttonlog{
+
+/* login button */
+#loginBtn {
 	background-color: #4CAF50;
 	box-sizing: border-box;
 	border: none;
@@ -314,13 +293,13 @@ body {
 	margin: 20px auto 40px;
 	transition: 0.5s;
 }
-.buttonlog:hover{
+#loginBtn:hover{
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	background-color: hsl(122, 39%, 47%);
 	transform: translateY(-0.15em);
 	width: 40%;
 }
-.buttonlog:focus{
+#loginBtn:focus{
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	background-color: hsl(122, 39%, 58%);
 	transform: translateY(-0.3em);
