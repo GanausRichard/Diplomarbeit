@@ -1,11 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
 @import url("https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Montserrat:900i&display=swap%27');
 
-* {
-	margin: 0;
-	padding: 0;
-	font-family: "Istok Web", sans-serif;
-}
 :root {
 	--black: #191919;
 	--lightblack:#212121;
@@ -21,10 +17,11 @@ body {
 	background-size: cover;
 	background-color: var(--greybackground);
 	font-size: 20px;
+	font-family: "Istok Web", sans-serif;
 }
 
-/* heading Nr.1 Chose game Mode */
-.heading{
+/* heading nr.1 - choose game mode */
+.introduction{
 	font-size: 3em;
 	text-align: center;
 	margin: 10% auto;
@@ -32,14 +29,25 @@ body {
 	font-weight: bold;
 }
 
+#heading{
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing:0.1em;
+	-webkit-text-fill-color: transparent;
+	-webkit-text-stroke-width: 2px;
+	-webkit-text-stroke-color: white;
+	text-shadow:
+			5px 5px var(--yellow),
+			15px 15px #000000;
+}
+
 #description {
 	font-size: 0.6em;
 	font-family: sans-serif;
-	margin-top: 5%;
+	margin: 5% auto 10%;
 }
 
-/* gameMode div */
-#gameMode{
+/* game mode div */
+#gameModeBox{
 	background: var(--lightblack) ;
 	display: block;
 	margin-left: 8%;
@@ -51,7 +59,7 @@ body {
 	border-radius: 2%;
 	margin-top: 8%;
 }
-.pve{
+.gameMode{
 	margin-top: 60px;
 	margin-left: 5%;
 	float: left;
@@ -63,12 +71,28 @@ body {
 	overflow: hidden;
 }
 
-.pve:hover::before {
+.gameMode::before {
+	content: "";
+	position: absolute;
+	top: 790px;
+	width: 320px;
+	height: 250px;
+	transform: skewY(345deg);
+	transition: 0.5s;
+	border-top-left-radius: 22%;
+	border-bottom-right-radius: 22%;
+}
+.gameMode:hover::before {
 	transform: skewY(390deg);
 }
+#pve::before {
+	background: var(--red);
+}
+#pvp::before {
+	background: var(--yellow);
+}
 
-.pve::after {
-	content: "PVE";
+.gameMode::after {
 	position: relative;
 	bottom: 110px;
 	left: 30px;
@@ -76,8 +100,14 @@ body {
 	font-size: 5em;
 	color: rgba(0, 0, 0, 0.6);
 }
+#pve::after {
+	content: "PVE";
+}
+#pvp::after {
+	content: "PVP";
+}
 
-.imgBox {
+.gameMode .imgBox {
 	height: 300px;
 	width: 100%;
 	position: relative;
@@ -86,128 +116,30 @@ body {
 	align-items: center;
 	padding-top: 20px;
 	z-index: 3;
-}
-
-/*Picture + transition*/
-.pve .imgBox img {
-	width: 85%;
-	height: 95%;
 	transition: .5s;
 }
-.pve:hover .imgBox img {
+/*Picture + transition*/
+#pve .imgBox img {
+	width: 85%;
+	height: 95%;
+}
+#pve:hover .imgBox img {
 	width: 75%;
 	height: 85%;
 }
-
-.pve .contentBox {
-	position: relative;
-	padding: 20px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	z-index: 2;
-}
-/*headline singleplayer*/
-.pve .contentBox h1 {
-	margin-top: 4%;
-	font-size: 20px;
-	color: white;
-	font-weight: 500;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	text-shadow: 1px  1px 1px black, 1px -1px 1px black, -1px  1px 1px black, -1px -1px 1px black;
-}
-/*Play Button*/
-.pve .contentBox .ContinueBtn {
-	position: relative;
-	top: 100px;
-	opacity: 0;
-	padding: 10px 30px;
-	margin-top: 15px;
-	color: #000000;
-	font-weight: bold;
-	font-size: 1.1em;
-	text-decoration: none;
-	background: var(--red);
-	border-radius: 30px;
-	border: none;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	transition: 0.5s;
-}
-/*Play Button appears*/
-.pve:hover .contentBox .ContinueBtn {
-	top: 0;
-	opacity: 1;
-}
-
-.pvp{
-	margin-top: 60px;
-	margin-left: 5%;
-	float: left;
-	top: 300px;
-	width: 320px;
-	height: 480px;
-	background: var(--black);
-	border-radius: 20px;
-	overflow: hidden;
-}
-
-.pvp::before {
-	content: "";
-	position: absolute;
-	top: 648px;
-	width: 320px;
-	height: 250px;
-	background: var(--yellow);
-	transform: skewY(345deg);
-	transition: 0.5s;
-	border-top-left-radius: 22%;
-	border-bottom-right-radius: 22%;
-}
-.pve::before {
-	content: "";
-	position: absolute;
-	top: 648px;
-	width: 320px;
-	height: 250px;
-	background: var(--red);
-	transform: skewY(345deg);
-	transition: 0.5s;
-	border-top-left-radius: 22%;
-	border-bottom-right-radius: 22%;
-}
-
-.pvp:hover::before {
-	transform: skewY(390deg);
-}
-
-.pvp::after {
-	content: "PVP";
-	position: relative;
-	bottom: 110px;
-	left: 30px;
-	font-weight: 600;
-	font-size: 5em;
-	color: rgba(0, 0, 0, 0.6);
-}
-
 /*Picture + transition*/
-.pvp .imgBox img {
+#pvp .imgBox img {
 	width: 100%;
 	height: 85%;
 	margin-top: 100px;
 	margin-bottom: 90px;
-	transition: .5s;
 }
-
-.pvp:hover .imgBox img {
+#pvp:hover .imgBox img {
 	width: 90%;
 	height: 75%;
 }
 
-.pvp .contentBox {
+.gameMode .contentBox {
 	position: relative;
 	padding: 20px;
 	display: flex;
@@ -216,9 +148,8 @@ body {
 	flex-direction: column;
 	z-index: 2;
 }
-
-/*headline singleplayer*/
-.pvp .contentBox h1 {
+/* heading for each game mode */
+.gameMode .contentBox h1 {
 	margin-top: 4%;
 	font-size: 20px;
 	color: white;
@@ -227,9 +158,8 @@ body {
 	letter-spacing: 1px;
 	text-shadow: 1px  1px 1px black, 1px -1px 1px black, -1px  1px 1px black, -1px -1px 1px black;
 }
-
-/*Play Button*/
-.pvp .contentBox .ContinueBtn {
+/* continue button */
+.gameMode .contentBox .ContinueBtn {
 	position: relative;
 	top: 100px;
 	opacity: 0;
@@ -239,19 +169,25 @@ body {
 	font-weight: bolder;
 	font-size: 1.1em;
 	text-decoration: none;
-	background: var(--yellow);
 	border-radius: 30px;
 	border: none;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	transition: 0.5s;
 }
-
-/*Play Button appears*/
-.pvp:hover .contentBox .ContinueBtn {
+.gameMode:hover .contentBox .ContinueBtn {
 	top: 0;
 	opacity: 1;
 }
+/* continue button for pvp mode */
+#pve .contentBox .ContinueBtn {
+	background: var(--red);
+}
+/* continue button for pvp mode */
+#pvp .contentBox .ContinueBtn {
+	background: var(--yellow);
+}
+/*continue button appears*/
 
 /* div for difficulty settings*/
 #difficulty {
@@ -316,8 +252,12 @@ body {
 	margin-bottom: 20px;
 }
 
+.login {
+	padding: 2px 16px;
+}
+
 /* Avatar login */
-.login-avatar{
+#loginPicture {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
@@ -327,9 +267,7 @@ body {
 	border-radius: 50%;
 }
 
-.login{
-	padding: 2px 16px;
-}
+
 
 /*Username Inputfield*/
 .unameLabel {
@@ -357,7 +295,8 @@ body {
 
 /*textfeld3*/
 .textlogin3{
-	font-size: 15px;
+	font-size: 20px;
+	font-weight: bold;
 	margin-bottom: 20px;
 	display: block;
 }
