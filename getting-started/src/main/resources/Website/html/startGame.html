@@ -10,29 +10,29 @@
 
 <body>
 <!-- headline -->
-<div class="heading">
-	<h1> VIER GEWINNT</h1>
+<div class="introduction">
+	<h1 id="heading">VIER GEWINNT</h1>
 	<p id="description">Bitte wähle Spielmodus, Schwierigkeitsgrad und Benutzername.</p>
 </div>
 <form id="gameSettings">
 	<!-- Chose game Mode -->
-	<div id="gameMode">
-		<div class="pve">
+	<div id="gameModeBox">
+		<div class="gameMode" id="pve">
 			<div class="imgBox">
 				<img src="../img/singlePlayer.png" alt="single player">
 			</div>
 			<div class="contentBox">
 				<h1>Spieler Vs Roboter</h1>
-				<button type="button" class="ContinueBtn" id="gameMode1" value="pve" onclick="getGameMode(value); hideShowDivs('gameMode','difficulty');">Weiter</button>
+				<button type="button" class="ContinueBtn" value="pve" onclick="getGameMode(value); hideShowDivs('gameModeBox','difficulty');">Weiter</button>
 			</div>
 		</div>
-		<div class="pvp">
+		<div class="gameMode" id="pvp">
 			<div class="imgBox">
 				<img src="../img/multiplayer.png" alt="multiplayer">
 			</div>
 			<div class="contentBox">
 				<h1>Spieler Vs Spieler</h1>
-				<button type="button" class="ContinueBtn" id="gameMode0" value="pvp" onclick="getGameMode(value); hideShowDivs('gameMode','login');">Weiter</button>
+				<button type="button" class="ContinueBtn" value="pvp" onclick="getGameMode(value); hideShowDivs('gameModeBox','login');">Weiter</button>
 			</div>
 		</div>
 	</div>
@@ -47,7 +47,7 @@
 	<!-- select your name -->
 	<div id="login">
 		<div>
-			<img src="../img/avatar.png" alt="avatar" class="login-avatar">
+			<img src="../img/avatar.png" alt="avatar" id="loginPicture">
 		</div>
 
 		<div class="login">
